@@ -12,6 +12,7 @@ router.post('/set-email', (req, res) => {
     const { email } = req.body;
     if (email) {
         req.session.userEmail = email;
+        console.log('Email set in session:', req.session.userEmail);
         res.sendStatus(200);
     } else {
         res.sendStatus(400);
