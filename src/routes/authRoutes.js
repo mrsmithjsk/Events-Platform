@@ -9,10 +9,13 @@ router.post('/register', register);
 router.post('/login', login);
 
 router.post('/set-email', (req, res) => {
-    const { email } = req.body; 
-    req.session.userEmail = email; 
-    console.log('Email set in session:', req.session.userEmail);
-    res.sendStatus(200); 
+    const { email } = req.body;
+    if (email) {
+        req.session.userEmail = email;
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(400);
+    }
 });
 
 router.get('/google', (req, res) => {
@@ -24,18 +27,18 @@ router.get('/google', (req, res) => {
     res.redirect(authUrl);
 });
 
-router.get('/google/redirect', async (req, res) => { 
+router.get('/google/redirect', async (req, res) => {
     console.log('Redirect endpoint hit:', req.query);
-    const { code } = req.query; 
+    const { code } = req.query;
     console.log('Full session object:', req.session);
     const email = req.session.userEmail;
     console.log('User email from session:', email);
     try {
-        const { tokens } = await oAuth2Client.getToken(code); 
+        const { tokens } = await oAuth2Client.getToken(code);
         oAuth2Client.setCredentials(tokens);
         console.log('Tokens received:', tokens);
-        
-        let user = await User.findOne({ email }); 
+
+        let user = await User.findOne({ email });
         console.log('User retrieved from DB:', user);
 
 
