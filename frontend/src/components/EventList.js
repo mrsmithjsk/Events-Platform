@@ -85,7 +85,7 @@ const EventList = () => {
     const handleJoinEvent = async (eventId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('hhttps://events-platform-cyfi.onrender.com/api/stripe/create-checkout-session', {
+            const response = await fetch('https://events-platform-cyfi.onrender.com/api/stripe/create-checkout-session', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
