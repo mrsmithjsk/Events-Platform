@@ -15,11 +15,19 @@ const app = express();
 
 const allowedOrigins = [
     'https://events-platform-01.netlify.app',
-    'https://events-platform-cyfi.onrender.com'
+    'https://events-platform-cyfi.onrender.com',
+    '*'
 ];
 
 app.use(cors({
-    origin: '*',
+    origin: function (origin, callback) {
+        console.log('Received Origin:', origin);
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, origin);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
