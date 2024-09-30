@@ -16,7 +16,7 @@ const app = express();
 app.use(session({
     secret: 'your-secret-key', 
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI,
         collectionName: 'sessions',
@@ -26,11 +26,12 @@ app.use(session({
 
 const allowedOrigins = [
     'https://main--events-platform-01.netlify.app',
-    // Add more origins as needed
+    'https://events-platform-cyfi.onrender.com/api/auth/google/redirect',
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
+        console.log('Received Origin:', origin); 
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, origin);
         } else {
@@ -39,6 +40,7 @@ app.use(cors({
     },
     credentials: true
 }));
+
 
 
 app.use(express.json());
