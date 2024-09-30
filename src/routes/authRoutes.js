@@ -15,7 +15,7 @@ router.post('/set-email', (req, res) => {
         console.log('Email set in session:', req.session.userEmail);
         console.log('Email set in session 2:', email);
         console.log('Session ID:', req.sessionID);
-        res.sendStatus(200).json({ email: req.session.userEmail });
+        res.sendStatus(200);
     } else {
         res.sendStatus(400);
     }
