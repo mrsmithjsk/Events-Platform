@@ -20,7 +20,7 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: 'https://main--events-platform-01.netlify.app', // Your frontend URL
+    origin: 'https://main--events-platform-01.netlify.app',
     credentials: true 
 }));
 
