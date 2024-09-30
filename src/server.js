@@ -52,7 +52,7 @@ const startServer = async () => {
         const dbUri = process.env.MONGO_URI || process.env.TEST_MONGO_URI; // Use the appropriate URI
         await connectDB(dbUri);
         await createAdminUser();
-        const PORT = process.env.PORT || process.env.TEST_PORT || 8080;
+        const PORT = process.env.PORT || 8080;
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     } catch (error) {
         console.error('Error connecting to DB', error.message);
