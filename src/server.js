@@ -16,11 +16,11 @@ app.use(session({
     secret: 'your-secret-key', 
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
+    cookie: { secure: true, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
 }));
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Your frontend URL
+    origin: 'https://main--events-platform-01.netlify.app', // Your frontend URL
     credentials: true 
 }));
 

@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
         if (sessionId) {
             const handlePaymentSuccess = async (sessionId) => {
                 try {
-                    const response = await fetch(`http://localhost:8081/api/stripe/payment-success?session_id=${sessionId}`, {
+                    const response = await fetch(`https://events-platform-cyfi.onrender.com/api/stripe/payment-success?session_id=${sessionId}`, {
                         method: 'GET',
                         credentials: 'include',
                         headers: {

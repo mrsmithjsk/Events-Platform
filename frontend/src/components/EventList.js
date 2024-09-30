@@ -22,7 +22,7 @@ const EventList = () => {
                     throw new Error('No valid token found');
                 }
 
-                const response = await fetch('http://localhost:8081/api/events', {
+                const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
                     headers: {
                         'Authorization': `Bearer ${token}` 
                     }
@@ -69,7 +69,7 @@ const EventList = () => {
             return;
         }
 
-        await fetch('http://localhost:8081/api/auth/set-email', {
+        await fetch('https://events-platform-cyfi.onrender.com/api/auth/set-email', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -78,14 +78,14 @@ const EventList = () => {
             body: JSON.stringify({ email: email }), 
         });
 
-        window.location.href = 'http://localhost:8081/api/auth/google';
+        window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
     };
 
 
     const handleJoinEvent = async (eventId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:8081/api/stripe/create-checkout-session', {
+            const response = await fetch('hhttps://events-platform-cyfi.onrender.com/api/stripe/create-checkout-session', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

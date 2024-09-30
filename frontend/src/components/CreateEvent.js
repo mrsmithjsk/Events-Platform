@@ -11,7 +11,7 @@ const CreateEvent = ({ closeModal }) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:8081/api/events', {
+        const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ router.get('/google/redirect', async (req, res) => {
         } else {
             return res.status(404).send('User not found. Please register first.');
         }
-        res.redirect('http://localhost:3000/events'); // Adjust this to redirect to your frontend
+        res.redirect('https://main--events-platform-01.netlify.app/events'); // Adjust this to redirect to your frontend
     } catch (error) {
         console.error('Error getting tokens:', error);
         res.status(500).send('Error during authentication');
