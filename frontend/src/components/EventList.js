@@ -77,6 +77,7 @@ const EventList = () => {
             },
             body: JSON.stringify({ email: email }), 
         });
+        
         window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
     };
 
