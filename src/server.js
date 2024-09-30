@@ -16,7 +16,6 @@ const app = express();
 const allowedOrigins = [
     'https://events-platform-01.netlify.app',
     'https://events-platform-cyfi.onrender.com',
-    '*'
 ];
 
 app.use(cors({
