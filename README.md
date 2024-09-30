@@ -34,3 +34,6 @@ Before running the project locally, ensure you have the following installed:
    ```bash
    git clone https://github.com/your-username/event-platform.git
    cd event-platform
+
+
+The code worked on localhost. Now hosted it does not. I believe the problem is CORS configurations/session management within the application. This is causing issues with the frontend and backend speaking to each other, and authenticating users correctly and retrieving necessary tokens for API calls.
