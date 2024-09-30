@@ -24,25 +24,16 @@ router.get('/google', (req, res) => {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar'],
-        redirect_uri: process.env.REDIRECT_URI,
+        redirect_uri: process.env.REDIRECT_URI, 
     });
     res.redirect(authUrl);
 });
 
 router.get('/google/redirect', async (req, res) => {
     console.log('Redirect endpoint hit:', req.query);
-    // check session state then redirect
-    console.log('Checking session state...');
-    const sessionCheck = await fetch(`${process.env.BASE_URL}/check-session`, {
-        method: 'GET',
-        credentials: 'include',
-    }).then(response => response.json())
-        .catch(error => console.error('Error checking session:', error));
-
-    console.log('Session Check:', sessionCheck);
     const { code } = req.query;
     console.log('Full session object:', req.session);
-    const email = sessionCheck.userEmail;
+    const email = req.session.userEmail;
     console.log('User email from session:', email);
     try {
         const { tokens } = await oAuth2Client.getToken(code);

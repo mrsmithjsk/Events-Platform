@@ -44,14 +44,6 @@ app.use(cors({
 
 
 app.use(express.json());
-
-// check session state
-app.get('/check-session', (req, res) => {
-    console.log('Session Check:', req.session);
-    res.json({ userEmail: req.session.userEmail });
-});
-
-
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/stripe', stripeRoutes);
