@@ -36,6 +36,7 @@ router.get('/google/redirect', async (req, res) => {
         console.log('Tokens received:', tokens);
         
         let user = await User.findOne({ email }); 
+        console.log('User retrieved from DB:', user);
 
 
         if (user) {
@@ -45,7 +46,7 @@ router.get('/google/redirect', async (req, res) => {
         } else {
             return res.status(404).send('User not found. Please register first.');
         }
-        res.redirect('https://main--events-platform-01.netlify.app/events'); // Adjust this to redirect to your frontend
+        res.redirect('https://main--events-platform-01.netlify.app/events'); //redirect to frontend
     } catch (error) {
         console.error('Error getting tokens:', error);
         res.status(500).send('Error during authentication');
