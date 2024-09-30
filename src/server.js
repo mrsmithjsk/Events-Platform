@@ -13,17 +13,6 @@ const MongoStore = require('connect-mongo');
 
 const app = express();
 
-app.use(session({
-    secret: 'your-secret-key', 
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
-        collectionName: 'sessions',
-    }),
-    cookie: { secure: true, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
-}));
-
 const allowedOrigins = [
     'https://main--events-platform-01.netlify.app',
     'https://events-platform-cyfi.onrender.com'
@@ -31,7 +20,7 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: function (origin, callback) {
-        console.log('Received Origin:', origin); 
+        console.log('Received Origin:', origin);
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, origin);
         } else {
@@ -39,6 +28,17 @@ app.use(cors({
         }
     },
     credentials: true
+}));
+
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: 'sessions',
+    }),
+    cookie: { secure: true, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
 }));
 
 
@@ -51,14 +51,14 @@ app.use('/api/stripe', stripeRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');
-  });
+});
 
 
 const startServer = async () => {
     try {
         const dbUri = process.env.MONGO_URI || process.env.TEST_MONGO_URI; // Use the appropriate URI
-        await connectDB(dbUri); 
-        await createAdminUser(); 
+        await connectDB(dbUri);
+        await createAdminUser();
         const PORT = process.env.PORT || process.env.TEST_PORT || 8080;
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     } catch (error) {
