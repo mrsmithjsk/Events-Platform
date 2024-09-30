@@ -1,6 +1,6 @@
 [build]
-  publish = "frontend/build"  # Path to the build output
-  command = "npm install && npm run build"  # Command to build your app
+  publish = "frontend/build"
+  command = "npm install --prefix frontend && npm run build --prefix frontend"
 
 [[redirects]]
   from = "/*"
