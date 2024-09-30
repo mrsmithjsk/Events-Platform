@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const stripeRoutes = require('./routes/stripeRoutes');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -16,6 +17,10 @@ app.use(session({
     secret: 'your-secret-key', 
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: 'sessions',
+    }),
     cookie: { secure: false, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
 }));
 
