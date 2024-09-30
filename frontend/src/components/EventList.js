@@ -69,7 +69,7 @@ const EventList = () => {
             return;
         }
 
-        await fetch('https://events-platform-cyfi.onrender.com/api/auth/set-email', {
+        const response = await fetch('https://events-platform-cyfi.onrender.com/api/auth/set-email', {
             method: 'POST',
             credentials: 'include',
             headers: {
