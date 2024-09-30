@@ -26,7 +26,7 @@ app.use(session({
 
 const allowedOrigins = [
     'https://main--events-platform-01.netlify.app',
-    'https://events-platform-cyfi.onrender.com/api/auth/google/redirect',
+    'https://events-platform-cyfi.onrender.com'
 ];
 
 app.use(cors({
