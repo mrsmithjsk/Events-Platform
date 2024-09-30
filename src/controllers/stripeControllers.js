@@ -30,8 +30,8 @@ exports.createCheckoutSession = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: 'https://events-platform-01.netlify.app/payment-success?session_id={CHECKOUT_SESSION_ID}', 
-      cancel_url: 'https://events-platform-01.netlify.app/events', 
+      success_url: 'https://main--events-platform-01.netlify.app/payment-success?session_id={CHECKOUT_SESSION_ID}', 
+      cancel_url: 'https://main--events-platform-01.netlify.app/events', 
       metadata: {
         eventId: String(eventId) 
       }

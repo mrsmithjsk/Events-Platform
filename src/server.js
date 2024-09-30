@@ -24,10 +24,22 @@ app.use(session({
     cookie: { secure: false, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
 }));
 
+const allowedOrigins = [
+    'https://main--events-platform-01.netlify.app',
+    // Add more origins as needed
+];
+
 app.use(cors({
-    origin: 'https://events-platform-01.netlify.app',
-    credentials: true 
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, origin);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
+
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
