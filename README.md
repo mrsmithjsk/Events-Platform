@@ -4,7 +4,7 @@ Welcome to the Event Platform! This application allows users to create and sign 
 
 ## Hosted Sites
 
-- **Frontend:** [Event Platform Frontend](https://main--events-platform-01.netlify.app/)
+- **Frontend:** [Event Platform Frontend](https://events-platform-01.netlify.app/)
 - **Backend:** [Event Platform Backend](https://events-platform-cyfi.onrender.com/)
 
 ## Features

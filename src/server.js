@@ -25,7 +25,7 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: 'https://main--events-platform-01.netlify.app',
+    origin: 'https://events-platform-01.netlify.app',
     credentials: true 
 }));
 
