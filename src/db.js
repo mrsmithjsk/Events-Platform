@@ -12,7 +12,7 @@ const connectDB = async (uri) => {
 const createAdminUser = async () => {
   try {
     const adminEmail = process.env.ADMIN_EMAIL;
-    const adminPassword = process.env.ADMIN_PASSWORD.trim();
+    const adminPassword = process.env.ADMIN_PASSWORD;
 
     const existingAdmin = await User.findOne({ email: adminEmail });
 
