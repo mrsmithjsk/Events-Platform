@@ -14,7 +14,7 @@ const MongoStore = require('connect-mongo');
 const app = express();
 
 const allowedOrigins = [
-    'https://main--events-platform-01.netlify.app',
+    'https://events-platform-01.netlify.app',
     'https://events-platform-cyfi.onrender.com'
 ];
 
