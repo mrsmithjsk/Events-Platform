@@ -24,23 +24,15 @@ app.use(session({
     cookie: { secure: true, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
 }));
 
-const allowedOrigins = [
-    'https://main--events-platform-01.netlify.app',
-    'https://events-platform-cyfi.onrender.com'
-];
-
 app.use(cors({
-    origin: function (origin, callback) {
-        console.log('Received Origin:', origin); 
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, origin);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
+    origin: [
+        'https://main--events-platform-01.netlify.app',
+        'https://events-platform-cyfi.onrender.com'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow necessary HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify the headers your frontend will send
+    credentials: true // Allow credentials to be sent
 }));
-
 
 
 app.use(express.json());
