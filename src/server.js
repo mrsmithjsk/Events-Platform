@@ -16,7 +16,7 @@ app.use(session({
     secret: 'your-secret-key', 
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
+    cookie: { secure: false, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
 }));
 
 app.use(cors({
