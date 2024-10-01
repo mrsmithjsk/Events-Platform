@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import CreateEvent from './CreateEvent';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -86,7 +86,7 @@ const EventList = () => {
             window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
     };
 
-    const handleGoogleCallback = async () => {
+    const handleGoogleCallback = useCallback(async () => {
         const params = new URLSearchParams(location.search);
         const code = params.get('code');
 
@@ -107,7 +107,7 @@ const EventList = () => {
                 alert('Error during Google callback: ' + data.message);
             }
         }
-    };
+    }, [location.search, navigate]);
 
     const handleJoinEvent = async (eventId) => {
         try {
