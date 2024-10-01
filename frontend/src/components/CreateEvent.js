@@ -17,6 +17,7 @@ const CreateEvent = ({ closeModal }) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`, 
             },
+            credentials: 'include',
             body: JSON.stringify({ title, description, date, price }),
         });
 

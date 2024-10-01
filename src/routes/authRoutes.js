@@ -12,9 +12,6 @@ router.post('/set-email', (req, res) => {
     const { email } = req.body;
     if (email) {
         req.session.userEmail = email;
-        console.log('Email set in session:', req.session.userEmail);
-        console.log('Email set in session 2:', email);
-        console.log('Session state:', req.session);
         res.sendStatus(200);
     } else {
         res.sendStatus(400);
@@ -22,8 +19,6 @@ router.post('/set-email', (req, res) => {
 });
 
 router.get('/google', (req, res) => {
-    const email = req.session.userEmail;
-    console.log('User email before redirect:', email);
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/userinfo.email'],
@@ -33,28 +28,17 @@ router.get('/google', (req, res) => {
 });
 
 router.get('/google/redirect', async (req, res) => {
-    console.log('Redirect endpoint hit:', req.query);
-    console.log('Session state at redirect:', req.session);
     const { code } = req.query;
-
-    //const email = req.session.userEmail;
-    //console.log('User email from state:', email);
     try {
         const { tokens } = await oAuth2Client.getToken(code);
         oAuth2Client.setCredentials(tokens);
-        console.log('Tokens received:', tokens);
 
         const userInfoResponse = await oAuth2Client.request({
             url: 'https://www.googleapis.com/oauth2/v2/userinfo'
         });
-
         const email = userInfoResponse.data.email; 
-        console.log('User email retrieved from Google:', email);
 
         let user = await User.findOne({ email });
-        console.log('User retrieved from DB:', user);
-
-
         if (user) {
             user.googleAccessToken = tokens.access_token;
             user.googleRefreshToken = tokens.refresh_token;
