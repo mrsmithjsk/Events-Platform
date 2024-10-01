@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import CreateEvent from './CreateEvent';
 import { loadStripe } from '@stripe/stripe-js';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const stripePromise = loadStripe("pk_test_51PycamK5UIKOqrVgOFuOsT0tINgPlMwGAYw3qAnWH9Hrzn5bdZz6q8244X0flO7OV8rzod8xW55cCgCZZhdr28mB00yDTqDRxD");
 
@@ -12,6 +14,8 @@ const EventList = () => {
     const [showModal, setShowModal] = useState(false);
     const [userId, setUserId] = useState(null);
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation(); 
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -78,11 +82,32 @@ const EventList = () => {
             },
             body: JSON.stringify({ email: email }),
         });
-        setTimeout(() => {
+
             window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
-        }, 1000);
     };
 
+    const handleGoogleCallback = async () => {
+        const params = new URLSearchParams(location.search);
+        const code = params.get('code');
+
+        if (code) {
+            const response = await fetch(`https://events-platform-cyfi.onrender.com/api/auth/google/redirect?code=${code}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('isGoogleLoggedIn', 'true');
+                setIsGoogleLoggedIn(true);
+                navigate('/events');
+            } else {
+                alert('Error during Google callback: ' + data.message);
+            }
+        }
+    };
 
     const handleJoinEvent = async (eventId) => {
         try {
@@ -126,6 +151,10 @@ const EventList = () => {
     const closeModal = () => {
         setShowModal(false);
     };
+
+    useEffect(() => {
+        handleGoogleCallback();
+    }, []);
 
 
     if (loading) {

@@ -3,6 +3,7 @@ const { register, login } = require('../controllers/authControllers');
 const { oAuth2Client } = require('../services/googleClient')
 const router = express.Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 router.post('/register', register);
 
@@ -22,7 +23,7 @@ router.get('/google', (req, res) => {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/userinfo.email'],
-        redirect_uri: process.env.REDIRECT_URI, 
+        redirect_uri: process.env.REDIRECT_URI,
     });
     res.redirect(authUrl);
 });
@@ -36,17 +37,20 @@ router.get('/google/redirect', async (req, res) => {
         const userInfoResponse = await oAuth2Client.request({
             url: 'https://www.googleapis.com/oauth2/v2/userinfo'
         });
-        const email = userInfoResponse.data.email; 
+        const email = userInfoResponse.data.email;
 
         let user = await User.findOne({ email });
         if (user) {
             user.googleAccessToken = tokens.access_token;
             user.googleRefreshToken = tokens.refresh_token;
             await user.save();
+            
+            const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            return res.status(200).json({ token });
         } else {
             return res.status(404).send('User not found. Please register first.');
         }
-        res.redirect('https://main--events-platform-01.netlify.app/events'); //redirect to frontend
+        //res.redirect('https://main--events-platform-01.netlify.app/events'); //redirect to frontend
     } catch (error) {
         console.error('Error getting tokens:', error);
         res.status(500).send('Error during authentication');

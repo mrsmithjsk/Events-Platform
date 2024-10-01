@@ -18,7 +18,7 @@ const allowedOrigins = [
     'https://events-platform-01.netlify.app/',
     'https://events-platform-cyfi.onrender.com/',
     'https://main--events-platform-01.netlify.app',
-    'https://main--events-platform-01.netlify.app/'
+    'https://main--events-platform-01.netlify.app/',
 ];
 
 app.use(cors({
