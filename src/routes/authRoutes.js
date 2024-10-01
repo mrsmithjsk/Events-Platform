@@ -22,12 +22,13 @@ router.post('/set-email', (req, res) => {
 });
 
 router.get('/google', (req, res) => {
-
+    const email = req.session.userEmail;
+    console.log('User email before redirect:', email);
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar'],
         redirect_uri: process.env.REDIRECT_URI, 
-        state: JSON.stringify({ email: req.session.userEmail }),
+        state: JSON.stringify({ email }),
     });
     res.redirect(authUrl);
 });
