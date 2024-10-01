@@ -35,7 +35,7 @@ router.get('/google', (req, res) => {
 router.get('/google/redirect', async (req, res) => {
     console.log('Redirect endpoint hit:', req.query);
     const { code } = req.query;
-    console.log('Full session object:', code);
+    
     const email = req.session.userEmail;
     console.log('User email from state:', email);
     try {

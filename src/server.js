@@ -44,6 +44,11 @@ app.use(session({
     cookie: { secure: true, sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 }
 }));
 
+app.use((req, res, next) => {
+    console.log(`Incoming Request: ${req.method} ${req.url} - Session ID: ${req.sessionID}`);
+    next();
+});
+
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
@@ -69,4 +74,3 @@ const startServer = async () => {
 startServer();
 
 module.exports = app;
-
