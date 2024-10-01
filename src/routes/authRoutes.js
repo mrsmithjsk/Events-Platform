@@ -37,12 +37,19 @@ router.get('/google/redirect', async (req, res) => {
     console.log('Session state at redirect:', req.session);
     const { code } = req.query;
 
-    const email = req.session.userEmail;
-    console.log('User email from state:', email);
+    //const email = req.session.userEmail;
+    //console.log('User email from state:', email);
     try {
         const { tokens } = await oAuth2Client.getToken(code);
         oAuth2Client.setCredentials(tokens);
         console.log('Tokens received:', tokens);
+
+        const userInfoResponse = await oAuth2Client.request({
+            url: 'https://www.googleapis.com/oauth2/v2/userinfo'
+        });
+
+        const email = userInfoResponse.data.email; 
+        console.log('User email retrieved from Google:', email);
 
         let user = await User.findOne({ email });
         console.log('User retrieved from DB:', user);
