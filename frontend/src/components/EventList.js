@@ -109,6 +109,10 @@ const EventList = () => {
         }
     }, [location.search, navigate]);
 
+    useEffect(() => {
+        handleGoogleCallback();
+    }, [handleGoogleCallback]);
+
     const handleJoinEvent = async (eventId) => {
         try {
             const token = localStorage.getItem('token');
@@ -151,11 +155,6 @@ const EventList = () => {
     const closeModal = () => {
         setShowModal(false);
     };
-
-    useEffect(() => {
-        handleGoogleCallback();
-    }, [handleGoogleCallback]);
-
 
     if (loading) {
         return <div>Loading events...</div>;

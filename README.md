@@ -41,7 +41,3 @@ Before running the project locally, ensure you have the following installed:
    ```bash
    cd frontend
    npm start
-
-
-### Note
-Since hosting, I have a problem with CORS. This is causing issues with the frontend and backend communicating; redirecting uris and reloading pages.

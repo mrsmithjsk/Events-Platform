@@ -44,13 +44,11 @@ router.get('/google/redirect', async (req, res) => {
             user.googleAccessToken = tokens.access_token;
             user.googleRefreshToken = tokens.refresh_token;
             await user.save();
-            
-            const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            return res.status(200).json({ token });
-        } else {
-            return res.status(404).send('User not found. Please register first.');
-        }
-        //res.redirect('https://main--events-platform-01.netlify.app/events'); //redirect to frontend
+        } 
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.cookie('token', token, { httpOnly: true, secure: true });
+        
+        return res.redirect('https://main--events-platform-01.netlify.app/events');
     } catch (error) {
         console.error('Error getting tokens:', error);
         res.status(500).send('Error during authentication');
