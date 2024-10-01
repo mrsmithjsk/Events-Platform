@@ -27,10 +27,15 @@ app.use(cors({
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
 }));
 
-app.options('*', cors());
+app.options('*', cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
 
 app.use(session({
     secret: 'your-secret-key',
