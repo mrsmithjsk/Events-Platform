@@ -8,6 +8,4 @@ router.post('/', protect, restrictTo('admin'), createEvent);
 
 router.get('/', protect, getEvents);
 
-router.post('/join', protect, joinEvent);
-
 module.exports = router; 

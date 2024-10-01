@@ -2,7 +2,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const { connectDB, createAdminUser } = require('./db');
 const authRoutes = require('./routes/authRoutes');
@@ -47,7 +46,7 @@ app.use(session({
         mongoUrl: process.env.MONGO_URI,
         collectionName: 'sessions',
     }),
-    cookie: { secure: true, sameSite: 'None', maxAge: 1000 * 60 * 60 * 24 } // Set to true if using HTTPS
+    cookie: { secure: true, sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 }
 }));
 
 
@@ -65,7 +64,7 @@ app.get('/', (req, res) => {
 
 const startServer = async () => {
     try {
-        const dbUri = process.env.MONGO_URI || process.env.TEST_MONGO_URI; // Use the appropriate URI
+        const dbUri = process.env.MONGO_URI || process.env.TEST_MONGO_URI;
         await connectDB(dbUri);
         await createAdminUser();
         const PORT = process.env.PORT || 8080;

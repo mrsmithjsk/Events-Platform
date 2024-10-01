@@ -34,11 +34,14 @@ Before running the project locally, ensure you have the following installed:
    ```bash
    git clone https://github.com/your-username/event-platform.git
    cd event-platform
-3. Run command npm start
+3. Run command 
+   ```bash
+   npm start
 4. Open a second terminal and run commands:
+   ```bash
    cd frontend
    npm start
 
 
 ### Note
-The code worked on localhost. Now hosted it does not. I believe the problem is CORS configurations/session management within the application. This is causing issues with the frontend and backend speaking to each other, and authenticating users correctly and retrieving necessary tokens for API calls.
+The code worked on localhost. Now hosted it does not. I believe the problem is with CORS and session management. This is causing issues with the frontend and backend communicating, authenticating users correctly and retrieving necessary tokens for API calls. As such one can login to Google but cannot be redirected back to the website and one can checkout with Stripe but cannot be redirected back to the website.
