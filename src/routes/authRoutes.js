@@ -14,7 +14,7 @@ router.post('/set-email', (req, res) => {
         req.session.userEmail = email;
         console.log('Email set in session:', req.session.userEmail);
         console.log('Email set in session 2:', email);
-        console.log('Session ID:', req.sessionID);
+        console.log('Session state:', req.session);
         res.sendStatus(200);
     } else {
         res.sendStatus(400);
@@ -34,8 +34,9 @@ router.get('/google', (req, res) => {
 
 router.get('/google/redirect', async (req, res) => {
     console.log('Redirect endpoint hit:', req.query);
+    console.log('Session state at redirect:', req.session);
     const { code } = req.query;
-    
+
     const email = req.session.userEmail;
     console.log('User email from state:', email);
     try {
