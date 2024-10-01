@@ -22,6 +22,7 @@ router.post('/set-email', (req, res) => {
 });
 
 router.get('/google', (req, res) => {
+
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar'],
@@ -33,11 +34,25 @@ router.get('/google', (req, res) => {
 
 router.get('/google/redirect', async (req, res) => {
     console.log('Redirect endpoint hit:', req.query);
-    const { code } = req.query;
-    console.log('Full session object:', req.session);
+    const { code, state } = req.query;
+    
+    if (!state) {
+        console.error('State is missing from query');
+        return res.status(400).send('State parameter is missing.');
+    }
+
+    
+    let email;
+    try {
+        const parsedState = JSON.parse(state);
+        email = parsedState.email; 
+    } catch (error) {
+        console.error('Error parsing state:', error);
+        return res.status(400).send('Invalid state parameter.');
+    }
     //const email = req.session.userEmail;
-    const { email } = JSON.parse(state);
-    console.log('User email from session:', email);
+    //const { email } = JSON.parse(state);
+    console.log('User email from state:', email);
     try {
         const { tokens } = await oAuth2Client.getToken(code);
         oAuth2Client.setCredentials(tokens);

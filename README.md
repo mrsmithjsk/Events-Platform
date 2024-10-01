@@ -34,6 +34,10 @@ Before running the project locally, ensure you have the following installed:
    ```bash
    git clone https://github.com/your-username/event-platform.git
    cd event-platform
+3. Run command npm start
+4. Open a second terminal and run commands:
+   cd frontend
+   npm start
 
 
 ### Note
