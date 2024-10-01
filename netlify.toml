@@ -1,3 +1,11 @@
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "https://events-platform-cyfi.onrender.com" # Backend URL
+    Access-Control-Allow-Credentials = "true"  # Allow cookies and credentials
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
