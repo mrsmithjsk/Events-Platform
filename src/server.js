@@ -31,13 +31,6 @@ app.use(cors({
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
 }));
 
-app.options('*', cors({
-    origin: allowedOrigins,
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
-}));
-
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
@@ -48,8 +41,6 @@ app.use(session({
     }),
     cookie: { secure: true, sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 }
 }));
-
-
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
