@@ -154,7 +154,7 @@ const EventList = () => {
 
     useEffect(() => {
         handleGoogleCallback();
-    }, []);
+    }, [handleGoogleCallback]);
 
 
     if (loading) {
