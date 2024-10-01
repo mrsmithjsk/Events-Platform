@@ -26,6 +26,7 @@ router.get('/google', (req, res) => {
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar'],
         redirect_uri: process.env.REDIRECT_URI, 
+        state: JSON.stringify({ email: req.session.userEmail }),
     });
     res.redirect(authUrl);
 });
@@ -34,7 +35,8 @@ router.get('/google/redirect', async (req, res) => {
     console.log('Redirect endpoint hit:', req.query);
     const { code } = req.query;
     console.log('Full session object:', req.session);
-    const email = req.session.userEmail;
+    //const email = req.session.userEmail;
+    const { email } = JSON.parse(state);
     console.log('User email from session:', email);
     try {
         const { tokens } = await oAuth2Client.getToken(code);
