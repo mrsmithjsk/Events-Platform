@@ -8,10 +8,10 @@ const EventList = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(false); 
-    const [showModal, setShowModal] = useState(false); 
-    const [userId, setUserId] = useState(null); 
-    const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false); 
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -24,7 +24,7 @@ const EventList = () => {
 
                 const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
                     headers: {
-                        'Authorization': `Bearer ${token}` 
+                        'Authorization': `Bearer ${token}`
                     },
                     credentials: 'include',
                 });
@@ -42,11 +42,11 @@ const EventList = () => {
 
                 const user = JSON.parse(localStorage.getItem('user'));
                 if (user && user.role === 'admin') {
-                    setIsAdmin(true); 
+                    setIsAdmin(true);
                 }
 
                 if (user && user.id) {
-                    setUserId(user.id); 
+                    setUserId(user.id);
                 }
 
                 const googleLoginStatus = localStorage.getItem('isGoogleLoggedIn');
@@ -60,10 +60,10 @@ const EventList = () => {
         };
 
         fetchEvents();
-    }, []); 
+    }, []);
 
     const handleGoogleLogin = async () => {
-        const email = localStorage.getItem('userEmail'); 
+        const email = localStorage.getItem('userEmail');
 
         if (!email) {
             alert('Email not found. Please log in or register first.');
@@ -76,10 +76,11 @@ const EventList = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email }), 
+            body: JSON.stringify({ email: email }),
         });
-
-        window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
+        setTimeout(() => {
+            window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
+        }, 1000);
     };
 
 
