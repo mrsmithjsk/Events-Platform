@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-
+        req.session.userEmail = user.email;
         req.session.googleAccessToken = user.googleAccessToken || null;
         req.session.googleRefreshToken = user.googleRefreshToken || null;
 
