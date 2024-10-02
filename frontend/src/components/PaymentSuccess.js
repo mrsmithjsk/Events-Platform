@@ -53,7 +53,7 @@ const PaymentSuccess = () => {
         } else {
             navigate('/events');
         }
-    }, [location, navigate]);
+    }, [location, navigate, token]);
 
 
     return <div>Processing payment...</div>;

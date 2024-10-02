@@ -20,7 +20,7 @@ const EventList = () => {
     const {token} = useAuth();
 
 
-    const fetchEvents = async () => {
+    const fetchEvents = useCallback(async () => {
         try {
             //const token = localStorage.getItem('token');
 
@@ -63,7 +63,7 @@ const EventList = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [fetchEvents]);
 
     const handleGoogleLogin = async () => {
         const email = localStorage.getItem('userEmail');
@@ -118,7 +118,7 @@ const EventList = () => {
 
     useEffect(() => {
         fetchEvents(); // Fetch events when the component mounts
-    }, []);
+    }, [fetchEvents]);
 
     const handleJoinEvent = async (eventId) => {
         try {
