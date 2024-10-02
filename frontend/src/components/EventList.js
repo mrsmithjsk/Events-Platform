@@ -100,9 +100,9 @@ const EventList = () => {
 
             const data = await response.json();
 
-            if (token) {
+            if (data.token) {
                 localStorage.setItem('token', data.token);
-                //localStorage.setItem('isGoogleLoggedIn', 'true');
+                console.log('Token stored:', data.token);
                 setIsGoogleLoggedIn(true);
                 await fetchEvents();
                 navigate('/events');
@@ -110,7 +110,7 @@ const EventList = () => {
                 alert('Error during Google callback: ' + data.message);
             }
         }
-    }, [location.search, navigate, fetchEvents, token]);
+    }, [location.search, navigate, fetchEvents]);
 
     useEffect(() => {
         handleGoogleCallback();
