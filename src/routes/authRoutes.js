@@ -23,6 +23,7 @@ router.get('/google', (req, res) => {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/userinfo.email'],
+        prompt: 'consent',
         redirect_uri: process.env.REDIRECT_URI,
     });
     res.redirect(authUrl);
@@ -43,7 +44,9 @@ router.get('/google/redirect', async (req, res) => {
         let user = await User.findOne({ email });
         if (user) {
             user.googleAccessToken = tokens.access_token;
-            user.googleRefreshToken = tokens.refresh_token;
+            if (tokens.refresh_token) {
+                user.googleRefreshToken = tokens.refresh_token;
+            }
             await user.save();
         } 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
