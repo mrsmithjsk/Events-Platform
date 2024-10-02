@@ -118,7 +118,7 @@ const EventList = () => {
 
     useEffect(() => {
         fetchEvents(); // Fetch events when the component mounts
-    }, [fetchEvents]);
+    }, [fetchEvents, token]);
 
     const handleJoinEvent = async (eventId) => {
         try {
