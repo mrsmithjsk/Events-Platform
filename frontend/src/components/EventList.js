@@ -63,7 +63,7 @@ const EventList = () => {
         } finally {
             setLoading(false);
         }
-    }, [fetchEvents]);
+    }, [token]);
 
     const handleGoogleLogin = async () => {
         const email = localStorage.getItem('userEmail');
