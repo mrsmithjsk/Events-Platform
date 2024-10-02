@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import CreateEvent from './CreateEvent';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../AuthProvider';
 
 
 const stripePromise = loadStripe("pk_test_51PycamK5UIKOqrVgOFuOsT0tINgPlMwGAYw3qAnWH9Hrzn5bdZz6q8244X0flO7OV8rzod8xW55cCgCZZhdr28mB00yDTqDRxD");
@@ -16,11 +17,12 @@ const EventList = () => {
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const {token} = useAuth();
 
 
     const fetchEvents = async () => {
         try {
-            const token = sessionStorage.getItem('token');
+            //const token = localStorage.getItem('token');
 
             if (!token) {
                 throw new Error('No valid token found');
@@ -44,7 +46,7 @@ const EventList = () => {
                 throw new Error('Expected an array of events');
             }
 
-            const user = JSON.parse(sessionStorage.getItem('user'));
+            const user = JSON.parse(localStorage.getItem('user'));
             if (user && user.role === 'admin') {
                 setIsAdmin(true);
             }
@@ -53,7 +55,7 @@ const EventList = () => {
                 setUserId(user.id);
             }
 
-            const googleLoginStatus = sessionStorage.getItem('isGoogleLoggedIn');
+            const googleLoginStatus = localStorage.getItem('isGoogleLoggedIn');
             setIsGoogleLoggedIn(googleLoginStatus === 'true');
 
         } catch (err) {
@@ -64,7 +66,7 @@ const EventList = () => {
     };
 
     const handleGoogleLogin = async () => {
-        const email = sessionStorage.getItem('userEmail');
+        const email = localStorage.getItem('userEmail');
 
         if (!email) {
             alert('Email not found. Please log in or register first.');
@@ -99,8 +101,8 @@ const EventList = () => {
             const data = await response.json();
             console.log(data);
             if (response.ok) {
-                sessionStorage.setItem('token', data.token);
-                sessionStorage.setItem('isGoogleLoggedIn', 'true');
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('isGoogleLoggedIn', 'true');
                 setIsGoogleLoggedIn(true);
                 await fetchEvents();
                 navigate('/events');
@@ -120,7 +122,7 @@ const EventList = () => {
 
     const handleJoinEvent = async (eventId) => {
         try {
-            const token = sessionStorage.getItem('token');
+            const token = localStorage.getItem('token');
             const response = await fetch('https://events-platform-cyfi.onrender.com/api/stripe/create-checkout-session', {
                 method: 'POST',
                 headers: {

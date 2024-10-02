@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import '../App.css';
+import { useAuth } from '../AuthProvider';
 
 const CreateEvent = ({ closeModal }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [price, setPrice] = useState('');
+    const { token } = useAuth();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = sessionStorage.getItem('token');
+        //const token = localStorage.getItem('token');
 
         const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
             method: 'POST',

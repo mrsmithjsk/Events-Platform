@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthProvider';
 
 const PaymentSuccess = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { token } = useAuth();
 
     useEffect(() => {
         const query = new URLSearchParams(location.search);
         const sessionId = query.get('session_id');
 
-        const token = sessionStorage.getItem('token'); 
-        console.log("Token on Payment Success:", token);
+        //const token = localStorage.getItem('token'); 
+        //console.log("Token on Payment Success:", token);
         if (!token) {
             console.error('Token is missing or expired.');
             alert('You need to log in to access this feature.');

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { useAuth } from './AuthProvider';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const { setToken } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,16 +23,14 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                sessionStorage.setItem('token', data.token);
-                sessionStorage.setItem('userEmail', email);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userEmail', email);
 
                 const decoded = JSON.parse(atob(data.token.split('.')[1]));
-                sessionStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
-
+                localStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
+                setToken(data.token);
                 setMessage('Login successful!');
-                if (sessionStorage.getItem('token')) {
-                    navigate('/events');
-                }
+                navigate('/events');
             } else {
                 setMessage(data.message);
             }
