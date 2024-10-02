@@ -17,7 +17,7 @@ const EventList = () => {
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const {token} = useAuth();
+    const { token } = useAuth();
 
 
     const fetchEvents = useCallback(async () => {
@@ -88,8 +88,38 @@ const EventList = () => {
     const handleGoogleCallback = useCallback(async () => {
         const params = new URLSearchParams(location.search);
         const code = params.get('code');
+        const token = params.get('token');
 
-        if (code) {
+        //     if (code) {
+        //         const response = await fetch(`https://events-platform-cyfi.onrender.com/api/auth/google/redirect?code=${code}`, {
+        //             method: 'GET',
+        //             credentials: 'include'
+        //         });
+        //         if (!response.ok) {
+        //             throw new Error('Failed to authenticate');
+        //         }
+
+        //         const data = await response.json();
+
+        //         if (data.token) {
+        //             localStorage.setItem('token', data.token);
+        //             console.log('Token stored:', data.token);
+        //             setIsGoogleLoggedIn(true);
+        //             await fetchEvents();
+        //             navigate('/events');
+        //         } else {
+        //             alert('Error during Google callback: ' + data.message);
+        //         }
+        //     }
+        // }, [location.search, navigate, fetchEvents]);
+
+        if (token) {
+            localStorage.setItem('token', token);
+            console.log('Token stored:', token);
+            setIsGoogleLoggedIn(true);
+            await fetchEvents();
+            navigate('/events');
+        } else if (code) {
             const response = await fetch(`https://events-platform-cyfi.onrender.com/api/auth/google/redirect?code=${code}`, {
                 method: 'GET',
                 credentials: 'include'
@@ -97,18 +127,7 @@ const EventList = () => {
             if (!response.ok) {
                 throw new Error('Failed to authenticate');
             }
-
-            const data = await response.json();
-
-            if (data.token) {
-                localStorage.setItem('token', data.token);
-                console.log('Token stored:', data.token);
-                setIsGoogleLoggedIn(true);
-                await fetchEvents();
-                navigate('/events');
-            } else {
-                alert('Error during Google callback: ' + data.message);
-            }
+            alert('Error during Google callback: No token found');
         }
     }, [location.search, navigate, fetchEvents]);
 

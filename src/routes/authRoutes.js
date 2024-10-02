@@ -47,8 +47,8 @@ router.get('/google/redirect', async (req, res) => {
             await user.save();
         } 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.cookie('token', token, { httpOnly: true, secure: true });
-        res.redirect('https://main--events-platform-01.netlify.app/events');
+        //res.cookie('token', token, { httpOnly: true, secure: true });
+        return res.redirect('https://main--events-platform-01.netlify.app/events?token=${token}');
     } catch (error) {
         console.error('Error getting tokens:', error);
         res.status(500).send('Error during authentication');
