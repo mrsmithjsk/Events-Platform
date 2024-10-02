@@ -22,15 +22,15 @@ const Login = () => {
             const data = await response.json();
             if (response.ok) {
                 sessionStorage.setItem('token', data.token);
-                sessionStorage.setItem('userEmail', email); 
+                sessionStorage.setItem('userEmail', email);
 
-                const decoded = JSON.parse(atob(data.token.split('.')[1])); 
+                const decoded = JSON.parse(atob(data.token.split('.')[1]));
                 sessionStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
 
                 setMessage('Login successful!');
                 if (sessionStorage.getItem('token')) {
-                navigate('/events');
-            }
+                    navigate('/events');
+                }
             } else {
                 setMessage(data.message);
             }
