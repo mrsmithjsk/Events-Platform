@@ -37,10 +37,12 @@ app.use(cors({
 
 app.options('*', cors());
 
+app.set('trust proxy', 1);
+
 app.use(session({
     secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI,
         collectionName: 'sessions',
@@ -50,6 +52,7 @@ app.use(session({
 
 app.use((req, res, next) => {
     console.log(`Incoming Request: ${req.method} ${req.url} - Session ID: ${req.sessionID}`);
+    console.log('Session Data:', req.session);
     next();
 });
 
