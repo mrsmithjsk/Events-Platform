@@ -15,56 +15,53 @@ const EventList = () => {
     const [userId, setUserId] = useState(null);
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation(); 
+    const location = useLocation();
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const token = localStorage.getItem('token');
 
-                if (!token) {
-                    throw new Error('No valid token found');
-                }
+    const fetchEvents = async () => {
+        try {
+            const token = localStorage.getItem('token');
 
-                const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    credentials: 'include',
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch events');
-                }
-
-                const data = await response.json();
-                if (Array.isArray(data)) {
-                    setEvents(data);
-                } else {
-                    throw new Error('Expected an array of events');
-                }
-
-                const user = JSON.parse(localStorage.getItem('user'));
-                if (user && user.role === 'admin') {
-                    setIsAdmin(true);
-                }
-
-                if (user && user.id) {
-                    setUserId(user.id);
-                }
-
-                const googleLoginStatus = localStorage.getItem('isGoogleLoggedIn');
-                setIsGoogleLoggedIn(googleLoginStatus === 'true');
-
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
+            if (!token) {
+                throw new Error('No valid token found');
             }
-        };
 
-        fetchEvents();
-    }, []);
+            const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch events');
+            }
+
+            const data = await response.json();
+            if (Array.isArray(data)) {
+                setEvents(data);
+            } else {
+                throw new Error('Expected an array of events');
+            }
+
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user && user.role === 'admin') {
+                setIsAdmin(true);
+            }
+
+            if (user && user.id) {
+                setUserId(user.id);
+            }
+
+            const googleLoginStatus = localStorage.getItem('isGoogleLoggedIn');
+            setIsGoogleLoggedIn(googleLoginStatus === 'true');
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleGoogleLogin = async () => {
         const email = localStorage.getItem('userEmail');
@@ -83,7 +80,7 @@ const EventList = () => {
             body: JSON.stringify({ email: email }),
         });
 
-            window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
+        window.location.href = 'https://events-platform-cyfi.onrender.com/api/auth/google';
     };
 
     const handleGoogleCallback = useCallback(async () => {
@@ -97,7 +94,7 @@ const EventList = () => {
             });
             if (!response.ok) {
                 throw new Error('Failed to authenticate');
-              }
+            }
 
             const data = await response.json();
             console.log(data);
@@ -105,6 +102,7 @@ const EventList = () => {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('isGoogleLoggedIn', 'true');
                 setIsGoogleLoggedIn(true);
+                await fetchEvents();
                 navigate('/events');
             } else {
                 alert('Error during Google callback: ' + data.message);
@@ -115,6 +113,10 @@ const EventList = () => {
     useEffect(() => {
         handleGoogleCallback();
     }, [handleGoogleCallback]);
+
+    useEffect(() => {
+        fetchEvents(); // Fetch events when the component mounts
+    }, []);
 
     const handleJoinEvent = async (eventId) => {
         try {
