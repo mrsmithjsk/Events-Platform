@@ -95,9 +95,12 @@ const EventList = () => {
                 method: 'GET',
                 credentials: 'include'
             });
+            if (!response.ok) {
+                throw new Error('Failed to authenticate');
+              }
 
             const data = await response.json();
-
+            console.log(data);
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('isGoogleLoggedIn', 'true');
