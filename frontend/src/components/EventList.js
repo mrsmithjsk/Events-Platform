@@ -110,7 +110,7 @@ const EventList = () => {
                 alert('Error during Google callback: ' + data.message);
             }
         }
-    }, [location.search, navigate]);
+    }, [location.search, navigate, fetchEvents]);
 
     useEffect(() => {
         handleGoogleCallback();
