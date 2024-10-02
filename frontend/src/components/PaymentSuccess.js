@@ -9,7 +9,7 @@ const PaymentSuccess = () => {
         const query = new URLSearchParams(location.search);
         const sessionId = query.get('session_id');
 
-        const token = localStorage.getItem('token'); 
+        const token = sessionStorage.getItem('token'); 
         console.log("Token on Payment Success:", token);
         if (!token) {
             console.error('Token is missing or expired.');

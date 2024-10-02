@@ -21,11 +21,11 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userEmail', email); 
+                sessionStorage.setItem('token', data.token);
+                sessionStorage.setItem('userEmail', email); 
 
                 const decoded = JSON.parse(atob(data.token.split('.')[1])); 
-                localStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
+                sessionStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
 
                 setMessage('Login successful!');
                 navigate('/events');

@@ -9,7 +9,7 @@ const CreateEvent = ({ closeModal }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
 
         const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
             method: 'POST',

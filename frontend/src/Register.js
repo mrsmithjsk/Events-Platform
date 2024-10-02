@@ -22,7 +22,7 @@ const Register = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem('userEmail', email);
+                sessionStorage.setItem('userEmail', email);
                 setMessage('Registration successful! You can log in now.');
                 setTimeout(() => {
                     navigate('/login');
