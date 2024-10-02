@@ -32,6 +32,7 @@ router.get('/google/redirect', async (req, res) => {
     const { code } = req.query;
     try {
         const { tokens } = await oAuth2Client.getToken(code);
+        console.log('Tokens received from Google:', tokens);
         oAuth2Client.setCredentials(tokens);
 
         const userInfoResponse = await oAuth2Client.request({
@@ -47,7 +48,7 @@ router.get('/google/redirect', async (req, res) => {
         } 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true, secure: true });
-        
+
         return res.redirect('https://main--events-platform-01.netlify.app/events');
     } catch (error) {
         console.error('Error getting tokens:', error);
