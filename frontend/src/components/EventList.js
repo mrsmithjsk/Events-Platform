@@ -22,7 +22,7 @@ const EventList = () => {
 
     const fetchEvents = useCallback(async () => {
         try {
-            //const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token');
 
             if (!token) {
                 throw new Error('No valid token found');
@@ -63,7 +63,7 @@ const EventList = () => {
         } finally {
             setLoading(false);
         }
-    }, [token]);
+    }, []);
 
     const handleGoogleLogin = async () => {
         const email = localStorage.getItem('userEmail');
