@@ -30,10 +30,10 @@ exports.createCheckoutSession = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: 'https://main--events-platform-01.netlify.app/payment-success?session_id={CHECKOUT_SESSION_ID}', 
-      cancel_url: 'https://main--events-platform-01.netlify.app/events', 
+      success_url: 'https://main--events-platform-01.netlify.app/payment-success?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://main--events-platform-01.netlify.app/events',
       metadata: {
-        eventId: String(eventId) 
+        eventId: String(eventId)
       }
     });
 
@@ -45,10 +45,10 @@ exports.createCheckoutSession = async (req, res) => {
 };
 
 exports.paymentSuccess = async (req, res) => {
-  const { session_id } = req.query; 
- 
+  const { session_id } = req.query;
+
   try {
-    const session = await stripe.checkout.sessions.retrieve(session_id); 
+    const session = await stripe.checkout.sessions.retrieve(session_id);
     const eventId = session.metadata.eventId;
     const userId = req.user.id;
 
@@ -64,11 +64,23 @@ exports.paymentSuccess = async (req, res) => {
     }
 
     const user = await User.findById(userId);
+    let calendarSyncMessage = null;
     if (user.googleAccessToken && user.googleRefreshToken) {
-      await syncEventToGoogleCalendar(eventId, user);
+      console.log('User has Google tokens, proceeding with sync...');
+      try {
+        await syncEventToGoogleCalendar(eventId, user);
+        calendarSyncMessage = 'Event successfully synced to your Google Calendar!';
+      } catch (error) {
+        console.error('Error syncing to Google Calendar:', error.message);
+        calendarSyncMessage = 'Failed to sync event to Google Calendar.';
+      }
     }
 
-    res.status(200).json({ message: 'Successfully joined the event!', eventTitle: event.title });
+    res.status(200).json({
+      message: 'Successfully joined the event!',
+      eventTitle: event.title,
+      calendarSyncMessage
+    });
   } catch (error) {
     console.error('Error handling payment success:', error);
     res.status(500).json({ message: 'Error processing payment' });
