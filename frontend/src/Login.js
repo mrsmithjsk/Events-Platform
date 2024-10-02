@@ -28,7 +28,9 @@ const Login = () => {
                 sessionStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
 
                 setMessage('Login successful!');
+                if (sessionStorage.getItem('token')) {
                 navigate('/events');
+            }
             } else {
                 setMessage(data.message);
             }
