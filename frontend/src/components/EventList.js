@@ -154,21 +154,30 @@ const EventList = () => {
 
             const data = await response.json();
 
-            if (response.ok && data.sessionId) {
-                const stripe = await stripePromise;
+            if (response.ok) {
+                if (data.sessionId) {
+                    const stripe = await stripePromise;
+                    const result = await stripe.redirectToCheckout({
+                        sessionId: data.sessionId,
+                    });
 
-                const result = await stripe.redirectToCheckout({
-                    sessionId: data.sessionId,
-                });
-
-                if (result.error) {
-                    console.error('Stripe checkout error:', result.error.message);
+                    if (result.error) {
+                        console.error('Stripe checkout error:', result.error.message);
+                        alert('Error during checkout. Please try again.');
+                    }
+                } else if (data.message) {
+                    alert(data.message);
+                    if (data.calendarSyncMessage) {
+                        alert(data.calendarSyncMessage);
+                    }
+                    fetchEvents();
                 }
             } else {
-                alert('Error creating checkout session');
+                alert(data.message || 'Error joining event');
             }
         } catch (error) {
             console.error('Error joining event:', error);
+            alert('An error occurred while joining the event. Please try again later.');
         }
     };
 
