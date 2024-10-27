@@ -22,7 +22,7 @@ exports.createCheckoutSession = async (req, res) => {
       //add user to event participants
       const existingParticipant = event.participants.find(participant => participant.userId.toString() === userId.toString());
       if (!existingParticipant) {
-        event.participants.push({ userId: userId, hasPaid: false }); // hasPaid false for free event
+        event.participants.push({ userId: userId, hasPaid: true });
         await event.save();
       }
 
