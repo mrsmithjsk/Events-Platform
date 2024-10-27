@@ -15,6 +15,38 @@ exports.createCheckoutSession = async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    //free event => skip Stripe checkout
+    if (event.price === 0) {
+      const userId = req.user.id;
+
+      //add user to event participants
+      const existingParticipant = event.participants.find(participant => participant.userId.toString() === userId.toString());
+      if (!existingParticipant) {
+        event.participants.push({ userId: userId, hasPaid: false }); // hasPaid false for free event
+        await event.save();
+      }
+
+      //Google Calendar sync
+      const user = await User.findById(userId);
+      let calendarSyncMessage = null;
+      if (user.googleAccessToken && user.googleRefreshToken) {
+        try {
+          await syncEventToGoogleCalendar(eventId, user);
+          calendarSyncMessage = 'Event successfully synced to your Google Calendar!';
+        } catch (error) {
+          console.error('Error syncing to Google Calendar:', error.message);
+          calendarSyncMessage = 'Failed to sync event to Google Calendar.';
+        }
+      }
+
+      //successful response
+      return res.status(200).json({
+        message: 'Successfully joined the free event!',
+        eventTitle: event.title,
+        calendarSyncMessage,
+      });
+    }
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
