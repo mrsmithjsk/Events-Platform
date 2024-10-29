@@ -19,6 +19,15 @@ const EventList = () => {
     const location = useLocation();
     const { token } = useAuth();
 
+    const handleLogOff = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('isGoogleLoggedIn');
+        window.location.href = "https://events-platform-01.netlify.app/";
+    };
+    
+
 
     const fetchEvents = useCallback(async () => {
         try {
@@ -89,29 +98,6 @@ const EventList = () => {
         const params = new URLSearchParams(location.search);
         const code = params.get('code');
         const token = params.get('token');
-
-        //     if (code) {
-        //         const response = await fetch(`https://events-platform-cyfi.onrender.com/api/auth/google/redirect?code=${code}`, {
-        //             method: 'GET',
-        //             credentials: 'include'
-        //         });
-        //         if (!response.ok) {
-        //             throw new Error('Failed to authenticate');
-        //         }
-
-        //         const data = await response.json();
-
-        //         if (data.token) {
-        //             localStorage.setItem('token', data.token);
-        //             console.log('Token stored:', data.token);
-        //             setIsGoogleLoggedIn(true);
-        //             await fetchEvents();
-        //             navigate('/events');
-        //         } else {
-        //             alert('Error during Google callback: ' + data.message);
-        //         }
-        //     }
-        // }, [location.search, navigate, fetchEvents]);
 
         if (token) {
             localStorage.setItem('token', token);
@@ -202,7 +188,9 @@ const EventList = () => {
     return (
         <div>
             <h2>Event List</h2>
-            {!isGoogleLoggedIn && (
+            <button onClick={handleLogOff} aria-label="Logout">Log Off</button>
+
+            {!isGoogleLoggedIn && !isAdmin && (
                 <button onClick={handleGoogleLogin} aria-label="Login with Google">Login with Google</button>
             )}
             {isAdmin && (
