@@ -141,15 +141,15 @@ Before running the project locally, ensure you have the following installed:
 - Go to "APIs & Services" > "Credentials"
 - Click "Create Credentials" and select "OAuth client ID"
 - Choose "Web application" as the application type
-- Set the authorized JavaScript origins to "http://localhost:8081"
-- Set the authorized redirect URI to http://localhost:8081/api/auth/google/redirect for local development
+- Set the authorised JavaScript origins to "http://localhost:8081"
+- Set the authorised redirect URI to http://localhost:8081/api/auth/google/redirect for local development
 - Click "Create"
 5. Obtain your CLIENT_ID and CLIENT_SECRET, and add them to your .env file. After creating the OAuth client, you'll see a modal with your Client ID and Client Secret - these are the values to be copied into your .env file
 6. Create an API Key:
 - In the Credentials page, click "Create Credentials" again and select "API Key"
 - Copy the generated API key and add it to your .env file
-7. Add authorized domains:
-- In the OAuth consent screen settings, add localhost to the list of authorized domains for testing
+7. Add authorised domains:
+- In the OAuth consent screen settings, add localhost to the list of authorised domains for testing
 8. Set up test users:
 - In the OAuth consent screen settings, add your Google account email as a test user.
 
@@ -170,7 +170,7 @@ CLIENT_ID=your_google_client_id  # Google OAuth client ID
 CLIENT_SECRET=your_google_client_secret  # Google OAuth client secret
 REDIRECT_URI=http://localhost:8081/api/auth/google/callback  # Redirect URI for Google OAuth
 GOOGLE_CALENDAR_KEY=your_google_calendar_key  # Key for accessing Google Calendar API
-
+```
 
 Replace `your_mongo_uri_here`, `your_jwt_secret`, `your_stripe_secret_key`, `your_stripe_publishable_key`, `your_google_client_id`, `your_google_client_secret`, and `your_google_calendar_key` with the actual values obtained from the services.
 
@@ -202,6 +202,7 @@ Your local environment will be set up and running. The frontend will be availabl
 - **Enhanced Event Filtering:** Adding search and filter functionality for events based on date, location, and category.
 - **Notifications:** Implementing real-time notifications for event reminders and updates.
 - **Profile Customisation:** Allowing users to customise their profiles and manage their event history.
+-**UI/UX Improvements:** Redesign the user interface for a more intuitive navigation experience, and style better such that it has a modern design aesthetic.
 
 ### Notes for Local Development
 
