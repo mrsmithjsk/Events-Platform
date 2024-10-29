@@ -188,7 +188,6 @@ const EventList = () => {
     return (
         <div>
             <h2>Event List</h2>
-            <button onClick={handleLogOff} aria-label="Logout">Log Off</button>
 
             {!isGoogleLoggedIn && !isAdmin && (
                 <button onClick={handleGoogleLogin} aria-label="Login with Google">Login with Google</button>
@@ -217,6 +216,7 @@ const EventList = () => {
                 </ul>
             )}
             {showModal && <CreateEvent closeModal={closeModal} />}
+            <button onClick={handleLogOff} aria-label="Logout">Log Off</button>
         </div>
     );
 };
