@@ -26,7 +26,7 @@ To help you explore the platform quickly, here are some pre-configured test acco
 - **User registration and login:** Easily sign up or log in using a test account or your own credentials.
 - **Admin functionality:** Admins can create new events, which are then visible to all users.
 - **Event sign-up and payment:** Users can browse and sign up for events. Once an event is joined and paid for (using Stripe), it will be added to the user's Google Calendar.
-- **Google Calendar Integration:** Sync your joined events directly to Google Calendar for better event management.
+- **Google Calendar Integration:** Sync your joined events directly to Google Calendar for better event management. 
 - **Stripe Payment Gateway:** Secure and easy payment integration using Stripe.
 
 ## Tech Stack
@@ -84,7 +84,7 @@ Before running the project locally, ensure you have the following installed:
      ```
 3. **.env**
 
-   - Add a .env file in the root of the project
+   - Add a .env file in the root of the project, and populate it with the necessary credentials as outlined in the **Configure Environment Variables** section below
 
 
 
@@ -158,6 +158,13 @@ Before running the project locally, ensure you have the following installed:
 8. Set up test users:
 - In the OAuth consent screen settings, add your Google account email as a test user.
 
+### Testing Google Calendar Integration
+When users join an event through this application, it automatically syncs with their Google Calendar. A pop-down alert confirms that the event has been successfully added, providing immediate feedback on actions taken within the app.
+To verify this functionality:
+1. Log in with Your Test Account: Use your test Google account to log into the application.
+2. Navigate to Google Calendar: Open Google Calendar in your browser.
+3. Check the Event Date: Look for the event on the day it is scheduled to take place.
+Now you can confirm that the integration works as intended and that events are correctly synced with users' calendars.
 
 ## 6. Configure Environment Variables
 
@@ -207,7 +214,7 @@ Your local environment will be set up and running. The frontend will be availabl
 - **Enhanced Event Filtering:** Adding search and filter functionality for events based on date, location, and category.
 - **Notifications:** Implementing real-time notifications for event reminders and updates.
 - **Profile Customisation:** Allowing users to customise their profiles and manage their event history.
-- **UI/UX Improvements:** Redesign the user interface for a more intuitive navigation experience, and style better such that it has a modern design aesthetic.
+- **UI/UX Improvements:** Redesign the user interface to be more modern.
 
 ## Notes for Local Development
 
