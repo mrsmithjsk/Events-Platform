@@ -127,6 +127,7 @@ Before running the project locally, ensure you have the following installed:
   - **Visa**: `4242 4242 4242 4242` (Any future expiry date e.g. 11/34, any CVC e.g. 123)
   - **MasterCard**: `5555 5555 5555 4444` (Any future expiry date, any CVC)
 - When testing, transactions will simulate successful payments but won’t process real funds - check the Stripe dashboard's transactions section to confirm if payments are processing.
+- Please note, one must have clicked the "Login with Google" button and have succesfully logged in to their Google account in order for the Stripe payment functionality to work properly.
 
 ## 5. Set Up Google API
 
