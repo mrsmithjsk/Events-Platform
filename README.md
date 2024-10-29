@@ -188,13 +188,13 @@ Start the backend server from the root of the project:
 
    ```bash
    npm start
-
+   ```
 Open a second terminal, navigate to the frontend directory, and start the frontend:
 
 ```bash
 cd frontend
 npm start
-
+```
 Your local environment will be set up and running. The frontend will be available at http://localhost:3000, and the backend will be available at http://localhost:8081.
 
 ## Future Enhancements
@@ -220,14 +220,14 @@ When developing locally, you may encounter CORS issues due to the different prot
        origin: true, //Allow all origins during local development
        credentials: true,
    }));
-
+   ```
 2. Secure Cookies: Ensure that the session cookie is not set to be secure during local development. In the same src/server.js file, set the secure option to false in the session configuration. This allows cookies to be sent over HTTP.
 ```javascript
 app.use(session({
    // ... other options
     cookie: { secure: false, sameSite: 'Lax', maxAge: 1000 * 60 * 60 * 24 } //Set secure to false for local development
 }));
-
+```
 
 **Database Connection Problems:**
 
