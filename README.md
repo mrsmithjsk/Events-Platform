@@ -82,6 +82,11 @@ Before running the project locally, ensure you have the following installed:
      ```bash
      npm install
      ```
+3. **.env**
+
+   - Add a .env file in the root of the project
+
+
 
 ## 3. Set Up MongoDB
 
@@ -202,13 +207,14 @@ Your local environment will be set up and running. The frontend will be availabl
 - **Enhanced Event Filtering:** Adding search and filter functionality for events based on date, location, and category.
 - **Notifications:** Implementing real-time notifications for event reminders and updates.
 - **Profile Customisation:** Allowing users to customise their profiles and manage their event history.
--**UI/UX Improvements:** Redesign the user interface for a more intuitive navigation experience, and style better such that it has a modern design aesthetic.
+- **UI/UX Improvements:** Redesign the user interface for a more intuitive navigation experience, and style better such that it has a modern design aesthetic.
 
-### Notes for Local Development
+## Notes for Local Development
 
 - The `netlify.toml` file does not affect local development. You can run the application locally without any issues, and the presence of this file is purely for deployment purposes on Netlify.
 
-- If you encounter any issues while running the Event Platform locally, here are some common problems and their solutions:
+### Troubleshooting
+If you encounter any issues while running the Event Platform locally, here are some common problems and their solutions:
 
 **CORS Issues:**
 
