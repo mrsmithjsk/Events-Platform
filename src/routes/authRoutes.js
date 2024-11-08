@@ -58,5 +58,6 @@ router.get('/google/redirect', async (req, res) => {
     }
 });
 
+router.post('/refresh', refreshToken); 
 
 module.exports = router;

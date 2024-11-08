@@ -40,3 +40,25 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+
+exports.refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
+  
+  if (!refreshToken) {
+    return res.status(400).json({ message: 'Refresh token is required' });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+    const newAccessToken = jwt.sign(
+      { id: decoded.id, role: decoded.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+    res.status(200).json({ accessToken: newAccessToken });
+  } catch (err) {
+    return res.status(403).json({ message: 'Invalid refresh token' });
+  }
+};
