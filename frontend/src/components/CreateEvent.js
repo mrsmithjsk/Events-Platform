@@ -7,7 +7,7 @@ const CreateEvent = ({ closeModal }) => {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [price, setPrice] = useState('');
-    const { token, refreshToken, refreshAccessToken } = useAuth();
+    const { token, refreshAccessToken } = useAuth();
 
     const isTokenExpired = (token) => {
         if (!token) return true;
@@ -23,10 +23,6 @@ const CreateEvent = ({ closeModal }) => {
             let currentToken = token;
 
             if (isTokenExpired(token)) {
-                if (!refreshToken) {
-                    alert('Session expired. Please log in again.');
-                    return; 
-                }
                 currentToken = await refreshAccessToken();
                 if (!currentToken) {
                     alert('Failed to refresh token. Please log in again.');
