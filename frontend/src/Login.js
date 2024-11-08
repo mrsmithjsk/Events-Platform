@@ -47,7 +47,7 @@ const Login = () => {
         <div>
             <h1>Login</h1>
             {loading ? ( // Display loading message if loading
-                <p>Loading...</p>
+                <p style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>Loading...</p>
             ) : (
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
