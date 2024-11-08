@@ -26,7 +26,7 @@ const EventList = () => {
         localStorage.removeItem('isGoogleLoggedIn');
         window.location.href = "https://events-platform-01.netlify.app/";
     };
-    
+
 
 
     const fetchEvents = useCallback(async () => {
@@ -101,7 +101,7 @@ const EventList = () => {
 
         if (token) {
             localStorage.setItem('token', token);
-            console.log('Token stored:', token);
+            localStorage.setItem('isGoogleLoggedIn', 'true');
             setIsGoogleLoggedIn(true);
             await fetchEvents();
             navigate('/events');
@@ -189,8 +189,14 @@ const EventList = () => {
         <div>
             <h2>Event List</h2>
 
-            {!isGoogleLoggedIn && !isAdmin && (
-                <button onClick={handleGoogleLogin} aria-label="Login with Google">Login with Google</button>
+            {!isAdmin && (
+                <button
+                    onClick={isGoogleLoggedIn ? null : handleGoogleLogin}
+                    disabled={isGoogleLoggedIn}
+                    aria-label="Google Login Status"
+                >
+                    {isGoogleLoggedIn ? 'Logged On' : 'Login with Google'}
+                </button>
             )}
             {isAdmin && (
                 <button onClick={openModal} aria-label="Create Event">Create Event</button>
