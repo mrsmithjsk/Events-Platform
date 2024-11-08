@@ -31,6 +31,8 @@ const CreateEvent = ({ closeModal }) => {
             setDate('');
             setPrice('');
             closeModal(); 
+
+            window.location.reload();
         } else {
             alert('Error creating event');
         }
