@@ -23,7 +23,15 @@ const CreateEvent = ({ closeModal }) => {
             let currentToken = token;
 
             if (isTokenExpired(token)) {
+                if (!refreshToken) {
+                    alert('Session expired. Please log in again.');
+                    return; 
+                }
                 currentToken = await refreshAccessToken();
+                if (!currentToken) {
+                    alert('Failed to refresh token. Please log in again.');
+                    return;
+                }
             }
 
             const response = await fetch('https://events-platform-cyfi.onrender.com/api/events', {
