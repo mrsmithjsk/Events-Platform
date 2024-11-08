@@ -156,7 +156,7 @@ const EventList = () => {
                     if (data.calendarSyncMessage) {
                         alert(data.calendarSyncMessage);
                     }
-                    fetchEvents();
+                    await fetchEvents();
                 }
             } else {
                 alert(data.message || 'Error joining event');
