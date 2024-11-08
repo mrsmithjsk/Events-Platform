@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login } = require('../controllers/authControllers');
+const { register, login, refreshToken } = require('../controllers/authControllers');
 const { oAuth2Client } = require('../services/googleClient')
 const router = express.Router();
 const User = require('../models/user');
