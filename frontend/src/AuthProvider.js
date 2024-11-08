@@ -3,8 +3,24 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(null); 
-    const [refreshToken, setRefreshToken] = useState(null); 
+    const [token, setToken] = useState(localStorage.getItem('accessToken'));
+    const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken'));
+
+    useEffect(() => {
+        if (token) {
+            localStorage.setItem('accessToken', token);
+        } else {
+            localStorage.removeItem('accessToken');
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if (refreshToken) {
+            localStorage.setItem('refreshToken', refreshToken);
+        } else {
+            localStorage.removeItem('refreshToken');
+        }
+    }, [refreshToken]);
 
     const refreshAccessToken = async () => {
         try {
@@ -19,7 +35,9 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 const data = await response.json();
                 setToken(data.accessToken); 
-                setRefreshToken(data.refreshToken);
+                if (data.refreshToken) {
+                    setRefreshToken(data.refreshToken);
+                }
                 return data.accessToken;
             } else {
                 console.error('Failed to refresh token');
