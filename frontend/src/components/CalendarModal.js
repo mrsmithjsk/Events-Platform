@@ -62,70 +62,80 @@ const CalendarModal = ({ isOpen, onClose }) => {
         fetchUserEvents();
     }, [isOpen, token, refreshAccessToken, onClose]);
 
-    const formatEventsForCalendar = () => {
-        return userEvents.map(event => ({
-            date: new Date(event.start),
-            title: event.title,
-            description: event.description,
-        }));
-    };
+    const tileContent = ({ date, view }) => {
+        if (view !== 'month') return null;
 
-    const renderEvents = ({ date }) => {
-        const eventsOnDate = formatEventsForCalendar().filter(event =>
-            date.toDateString() === event.date.toDateString()
+        const eventsOnDate = userEvents.filter(event =>
+            new Date(event.start).toDateString() === date.toDateString()
         );
 
-        return (
-            <div>
-                {eventsOnDate.map((event, index) => (
-                    <div key={index}>
-                        <strong>{event.title}</strong>
-                        <p>{event.description}</p>
-                    </div>
-                ))}
+        return eventsOnDate.length > 0 ? (
+            <div
+                style={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end'
+                }}
+                title={`${eventsOnDate.length} event(s)`}
+            >
+                <div style={{
+                    backgroundColor: '#007bff',
+                    color: 'white',
+                    borderRadius: '50%',
+                    width: '20px',
+                    height: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '12px',
+                    margin: '2px auto'
+                }}>
+                    {eventsOnDate.length}
+                </div>
             </div>
-        );
+        ) : null;
     };
 
     return (
-        <Modal isOpen={isOpen}
+        <Modal
+            isOpen={isOpen}
             onRequestClose={onClose}
             style={{
-                content: {
-                    position: 'fixed',
-                    top: '20px',
-                    right: '20px',
-                    width: '300px',
-                    height: '400px',
-                    maxWidth: '80%',
-                    maxHeight: '80%',
-                    padding: '20px',
-                    overflow: 'auto',
-                },
                 overlay: {
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    zIndex: 1000
+                },
+                content: {
+                    top: '50%',
+                    left: '50%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '90%',
+                    maxWidth: '600px',
+                    maxHeight: '90vh',
+                    padding: '20px',
+                    borderRadius: '8px',
                 }
-            }} //test
+            }}
         >
-            <div className="calendar-modal-content">
-                <h2>Your Events</h2>
-                {loading ? (
-                    <p>Loading...</p>
-                ) : error ? (
-                    <p>{error}</p>
-                ) : (
-                    <Calendar
-                        tileContent={renderEvents}
-                        style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(7, 1fr)',
-                            gap: '10px'
-                          }}
-                    />
-                )}
-            </div>
-        </Modal >
+            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Your Events</h2>
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
+                <Calendar
+                    tileContent={tileContent}
+                    className="calendar-container"
+                    aria-label="User Events Calendar"
+                />
+            )}
+        </Modal>
     );
 };
 
 export default CalendarModal;
+
