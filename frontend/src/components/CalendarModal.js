@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Calendar from 'react-calendar';
 import '../App.css';
+import 'react-calendar/dist/Calendar.css';
 import { useAuth } from '../AuthProvider';
 
 Modal.setAppElement('#root');
