@@ -302,19 +302,31 @@ h1 {
 }
 
 .calendar-modal-content .react-calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
   gap: 10px;
-  grid-auto-rows: minmax(50px, auto);
 }
 
 .react-calendar__tile {
   padding: 10px;
   text-align: center;
   cursor: pointer;
+  min-height: 60px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;
   cursor: not-allowed;
+}
+
+.react-calendar__tile.event {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  font-size: 1.5rem;
 }
