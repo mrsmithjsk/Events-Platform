@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
     "axios": "^1.7.7",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import CreateEvent from './CreateEvent';
+import CalendarModal from './CalendarModal';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthProvider';
@@ -13,6 +14,7 @@ const EventList = () => {
     const [error, setError] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showCalendar, setShowCalendar] = useState(false);
     const [userId, setUserId] = useState(null);
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -177,6 +179,14 @@ const EventList = () => {
         setShowModal(false);
     };
 
+    const openCalendar = () => {
+        setShowCalendar(true);
+    };
+
+    const closeCalendar = () => {
+        setShowCalendar(false);
+    };
+
     if (loading) {
         return <div>Loading events...</div>;
     }
@@ -201,6 +211,10 @@ const EventList = () => {
             {isAdmin && (
                 <button onClick={openModal} aria-label="Create Event">Create Event</button>
             )}
+
+            <button onClick={openCalendar} className="calendar-button">View Calendar</button>
+            <CalendarModal isOpen={showCalendar} onClose={closeCalendar} />
+
             {events.length === 0 ? (
                 <p>No events available</p>
             ) : (
