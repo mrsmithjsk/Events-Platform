@@ -37,7 +37,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
                     }
                 }
 
-                const response = await fetch('https://events-platform-cyfi.onrender.com/api/userEvents', {
+                const response = await fetch('https://events-platform-cyfi.onrender.com/api/events/userEvents', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${currentToken}`,
