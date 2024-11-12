@@ -1,4 +1,4 @@
-.modal {
+.create-event-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   z-index: 1000;
 }
 
-.modal-content {
+.create-event-modal .create-event-modal-content {
   background: white;
   padding: 20px;
   border-radius: 5px;
@@ -20,8 +20,8 @@
   max-width: 90%;
 }
 
-.modal-content input,
-.modal-content textarea {
+.create-event-modal .create-event-modal-content input,
+.create-event-modal .create-event-modal-content textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -31,13 +31,13 @@
   box-sizing: border-box;
 }
 
-.modal-content textarea {
+.create-event-modal .create-event-modal-content textarea {
   height: 200px;
   width: 300px;
   resize: none;
 }
 
-.modal-content button {
+.create-event-modal .create-event-modal-content button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -49,20 +49,20 @@
   margin-right: 10px;
 }
 
-.modal-content button:hover {
+.create-event-modal .create-event-modal-content button:hover {
   background-color: #0056b3;
 }
 
-.modal-content button:disabled {
+.create-event-modal .create-event-modal-content button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
 
-.modal-content button:focus {
+.create-event-modal .create-event-modal-content button:focus {
   outline: none;
 }
 
-.modal-content form {
+.create-event-modal .create-event-modal-content form {
   display: flex;
   flex-direction: column;
 }

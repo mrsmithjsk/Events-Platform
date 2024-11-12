@@ -58,8 +58,8 @@ const CreateEvent = ({ closeModal }) => {
     };
 
         return (
-            <div className="modal">
-                <div className="modal-content">
+            <div className="create-event-modal">
+                <div className="create-event-modal-content">
                     <h2>Create New Event</h2>
                     <form onSubmit={handleSubmit}>
                         <div>
