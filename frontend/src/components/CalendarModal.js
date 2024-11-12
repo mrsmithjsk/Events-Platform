@@ -88,7 +88,25 @@ const CalendarModal = ({ isOpen, onClose }) => {
     };
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
+        <Modal isOpen={isOpen} 
+        onRequestClose={onClose}
+        style={{
+            content: {
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                width: '300px',
+                height: '400px',
+                maxWidth: '80%',
+                maxHeight: '80%',
+                padding: '20px',
+                overflow: 'auto',
+            },
+            overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }
+        }}
+        >
             <h2>Your Events</h2>
             {loading ? (
                 <p>Loading...</p>
@@ -97,7 +115,6 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : (
                 <Calendar
                     tileContent={renderEvents}
-                    // Other calendar props as necessary
                 />
             )}
         </Modal>
