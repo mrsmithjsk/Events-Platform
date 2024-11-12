@@ -60,7 +60,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
         if (isOpen) {
             fetchUserEvents();
         }
-    }, [isOpen, token]); //only runs when modal is opened or token changes
+    }, [isOpen, fetchUserEvents]); 
 
     const formatEventsForCalendar = () => {
         return userEvents.map(event => ({
