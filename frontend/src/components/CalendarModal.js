@@ -19,48 +19,48 @@ const CalendarModal = ({ isOpen, onClose }) => {
         return expirationTime < Date.now();
     };
 
-    const fetchUserEvents = async () => {
-        try {
-            setLoading(true);
-            setError(null);
-            let currentToken = token;
-
-            if (isTokenExpired(token)) {
-                currentToken = await refreshAccessToken();
-                if (!currentToken) {
-                    alert('Session expired. Please log in again.');
-                    onClose();
-                    return;
-                }
-            }
-
-            const response = await fetch('https://events-platform-cyfi.onrender.com/api/userEvents', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${currentToken}`,
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch events');
-            }
-
-            const data = await response.json();
-            setUserEvents(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        if (isOpen) {
-            fetchUserEvents();
-        }
-    }, [isOpen, fetchUserEvents]); 
+        if (!isOpen) return;
+
+        const fetchUserEvents = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                let currentToken = token;
+
+                if (isTokenExpired(token)) {
+                    currentToken = await refreshAccessToken();
+                    if (!currentToken) {
+                        alert('Session expired. Please log in again.');
+                        onClose();
+                        return;
+                    }
+                }
+
+                const response = await fetch('https://events-platform-cyfi.onrender.com/api/userEvents', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+
+                const data = await response.json();
+                setUserEvents(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserEvents();
+    }, [isOpen, token, refreshAccessToken, onClose]);
 
     const formatEventsForCalendar = () => {
         return userEvents.map(event => ({
@@ -76,55 +76,30 @@ const CalendarModal = ({ isOpen, onClose }) => {
         );
 
         return (
-            <>
+            <div>
                 {eventsOnDate.map((event, index) => (
-                    <div key={index} className="event">
+                    <div key={index}>
                         <strong>{event.title}</strong>
                         <p>{event.description}</p>
                     </div>
                 ))}
-            </>
+            </div>
         );
     };
 
     return (
-        <Modal
-            isOpen={isOpen}
-            onRequestClose={onClose}
-            contentLabel="User Event Calendar"
-            style={{
-                content: {
-                    top: '50%',
-                    left: '50%',
-                    right: 'auto',
-                    bottom: 'auto',
-                    marginRight: '-50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '80%',
-                    maxWidth: '600px',
-                },
-            }}
-        >
-            <h2>User Event Calendar</h2>
-            {loading && <p>Loading events...</p>}
-            {error && <p>Error: {error}</p>}
-            {!loading && !error && (
+        <Modal isOpen={isOpen} onRequestClose={onClose}>
+            <h2>Your Events</h2>
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
                 <Calendar
                     tileContent={renderEvents}
-                    tileClassName={({ date, view }) => {
-                        if (
-                            userEvents.some(
-                                event =>
-                                    new Date(event.start).toDateString() === date.toDateString()
-                            )
-                        ) {
-                            return 'highlight';
-                        }
-                        return null;
-                    }}
+                    // Other calendar props as necessary
                 />
             )}
-            <button onClick={onClose}>Close</button>
         </Modal>
     );
 };
