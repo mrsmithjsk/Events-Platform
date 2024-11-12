@@ -105,7 +105,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
             overlay: {
                 backgroundColor: 'rgba(0, 0, 0, 0.5)',
             }
-        }}
+        }} //test
         >
             <h2>Your Events</h2>
             {loading ? (
@@ -115,6 +115,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : (
                 <Calendar
                     tileContent={renderEvents}
+                    style={{ width: '100%', height: 'auto' }} //test
                 />
             )}
         </Modal>

@@ -292,3 +292,10 @@ h1 {
   z-index: 1000;
 }
 
+.react-calendar {
+  display: grid !important; 
+  grid-template-columns: repeat(7, 1fr); 
+  gap: 4px;
+  width: 100%;
+  height: auto;
+}
