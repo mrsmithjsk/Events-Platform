@@ -330,3 +330,36 @@ h1 {
   border-radius: 50%;
   font-size: 1.5rem;
 } */
+
+
+.react-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); 
+  gap: 5px; 
+  padding: 10px;
+  background-color: white;
+}
+
+.react-calendar__tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px; 
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.react-calendar__tile:hover {
+  background-color: #f0f0f0;
+}
+
+.react-calendar__tile--now {
+  background-color: #007bff;
+  color: white;
+}
+
+.react-calendar__tile--active {
+  background-color: #007bff;
+  color: white;
+}
