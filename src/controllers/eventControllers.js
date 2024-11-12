@@ -1,4 +1,5 @@
 const Event = require('../models/event');
+const User = require('../models/user');
 
 exports.createEvent = async (req, res) => {
   try {
@@ -26,9 +27,6 @@ exports.getEvents = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-const User = require('../models/userModel');
-const Event = require('../models/eventModel');
 
 exports.getUserEvents = async (req, res) => {
   try {
