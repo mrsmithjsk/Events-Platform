@@ -1,6 +1,6 @@
 [[headers]]
   for = "/*"
-    [headers.values]
+  [headers.values]
     Access-Control-Allow-Origin = "https://events-platform-cyfi.onrender.com" # Backend URL
     Access-Control-Allow-Credentials = "true"  # Allow cookies and credentials
     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
@@ -11,5 +11,5 @@
   to = "/index.html"
   status = 200
 
-  [build]
-  node_version = "16"
+[build]
+  node_version = "18"
