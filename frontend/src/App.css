@@ -293,7 +293,7 @@ h1 {
 }
 
 
-.calendar-modal-content {
+/* .calendar-modal-content {
   background: white;
   padding: 20px;
   border-radius: 5px;
@@ -329,10 +329,10 @@ h1 {
   color: white;
   border-radius: 50%;
   font-size: 1.5rem;
-}
+} */
 
 
-/* .react-calendar {
+.react-calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr); 
   gap: 5px; 
@@ -362,4 +362,4 @@ h1 {
 .react-calendar__tile--active {
   background-color: #007bff;
   color: white;
-} */
+}

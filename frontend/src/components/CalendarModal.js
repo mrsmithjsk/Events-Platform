@@ -116,6 +116,11 @@ const CalendarModal = ({ isOpen, onClose }) => {
                 ) : (
                     <Calendar
                         tileContent={renderEvents}
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(7, 1fr)',
+                            gap: '10px'
+                          }}
                     />
                 )}
             </div>
