@@ -88,37 +88,38 @@ const CalendarModal = ({ isOpen, onClose }) => {
     };
 
     return (
-        <Modal isOpen={isOpen} 
-        onRequestClose={onClose}
-        style={{
-            content: {
-                position: 'fixed',
-                top: '20px',
-                right: '20px',
-                width: '300px',
-                height: '400px',
-                maxWidth: '80%',
-                maxHeight: '80%',
-                padding: '20px',
-                overflow: 'auto',
-            },
-            overlay: {
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            }
-        }} //test
+        <Modal isOpen={isOpen}
+            onRequestClose={onClose}
+            // style={{
+            //     content: {
+            //         position: 'fixed',
+            //         top: '20px',
+            //         right: '20px',
+            //         width: '300px',
+            //         height: '400px',
+            //         maxWidth: '80%',
+            //         maxHeight: '80%',
+            //         padding: '20px',
+            //         overflow: 'auto',
+            //     },
+            //     overlay: {
+            //         backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            //     }
+            // }} //test
         >
-            <h2>Your Events</h2>
-            {loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p>{error}</p>
-            ) : (
-                <Calendar
-                    tileContent={renderEvents}
-                    style={{ width: '100%', height: 'auto' }} //test
-                />
-            )}
-        </Modal>
+            <div className="calendar-modal-content">
+                <h2>Your Events</h2>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : error ? (
+                    <p>{error}</p>
+                ) : (
+                    <Calendar
+                        tileContent={renderEvents}
+                    />
+                )}
+            </div>
+        </Modal >
     );
 };
 
