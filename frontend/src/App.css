@@ -332,7 +332,7 @@ h1 {
 } */
 
 
-.react-calendar {
+/* .react-calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr); 
   gap: 5px; 
@@ -362,4 +362,4 @@ h1 {
 .react-calendar__tile--active {
   background-color: #007bff;
   color: white;
-}
+} */
