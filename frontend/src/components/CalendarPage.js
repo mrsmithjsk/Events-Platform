@@ -1,43 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-import enGB from 'date-fns/locale/en-GB';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Calendar from './Calendar';
 import '../App.css';
 import { useAuth } from '../AuthProvider';
 import { useNavigate } from 'react-router-dom';
-
-const locales = {
-    'en-GB': enGB
-};
-
-const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek: (date) => startOfWeek(date, { locale: enGB }),
-    getDay,
-    locales,
-});
-
-const EventComponent = ({ event }) => (
-    <div style={{
-        backgroundColor: '#3174ad',
-        color: 'white',
-        padding: '4px',
-        borderRadius: '3px',
-        fontSize: '14px',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        width: '100%',
-        cursor: 'pointer'
-    }}>
-        {event.title}
-        </div>
-);
 
 const CalendarPage = () => {
     const [userEvents, setUserEvents] = useState([]);
@@ -102,43 +67,18 @@ const CalendarPage = () => {
         fetchUserEvents();
     }, [token, refreshAccessToken, navigate]);
 
-    const handleSelectEvent = (event) => {
-        alert(`Event: ${event.title}
-            ${event.description ? '\nDescription: ' + event.description : ''}
-            \nDate: ${format(event.start, 'dd/MM/yyyy')}
-        `);
-    };
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     return (
         <div style={{ padding: '20px' }}>
             <div style={{ marginBottom: '20px' }}>
-                {/* <h2 style={{ marginBottom: '10px' }}>Your Events Calendar</h2> */}
+                <h2 style={{ marginBottom: '10px' }}>Your Events Calendar</h2>
                 <button onClick={() => navigate('/events')}>
                     Back to Events
                 </button>
             </div>
-
-            <div className="calendar-container" style={{ height: '90vh', minHeight: '900px' }}>
-                <Calendar
-                    localizer={localizer}
-                    events={userEvents}
-                    startAccessor="start"
-                    endAccessor="end"
-                    views={['month', 'day']}
-                    defaultView="month"
-                    components={{
-                        event: EventComponent
-                    }}
-                    style={{ height: '100%' }}
-                    popup
-                    onSelectEvent={handleSelectEvent}
-                    step={60}
-                    timeslots={1}
-                />
-            </div>
+            <Calendar events={userEvents} />
         </div>
     );
 };
