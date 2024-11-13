@@ -126,7 +126,7 @@ const EventList = () => {
         } else {
             alert('Google authentication failed: No authorization code found');
         }
-    }, [location.search, navigate, fetchEvents]);
+    }, [location.search, navigate, fetchEvents, setToken]);
 
 
     useEffect(() => {
