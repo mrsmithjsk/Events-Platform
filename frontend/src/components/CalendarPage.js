@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import Calendar from './Calendar';
 import '../App.css';
 import { useAuth } from '../AuthProvider';
@@ -45,7 +45,7 @@ const CalendarPage = () => {
             try {
                 setLoading(true);
                 setError(null);
-                let newToken = token;
+                let newToken = localStorage.getItem('token');;
 
                 if (!newToken) {
                     newToken = await refreshAccessToken();
