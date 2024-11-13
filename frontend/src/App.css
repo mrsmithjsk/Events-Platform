@@ -291,3 +291,41 @@ h1 {
   right: 20px;
   z-index: 1000;
 }
+
+
+/* Custom styles for React Big Calendar */
+.rbc-calendar {
+  width: 100%;
+  background: white;
+}
+
+.rbc-header {
+  padding: 8px;
+  font-weight: bold;
+  background: #f8f9fa;
+}
+
+.rbc-event {
+  background-color: #3182ce;
+  border-radius: 4px;
+  padding: 2px 5px;
+}
+
+.rbc-today {
+  background-color: #ebf8ff;
+}
+
+.rbc-toolbar button {
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+  padding: 6px 12px;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #edf2f7;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #3182ce;
+  color: white;
+}
