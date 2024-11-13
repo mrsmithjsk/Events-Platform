@@ -90,6 +90,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
                     height: '80vh',
                     padding: '20px',
                     borderRadius: '8px',
+                    overflow: 'auto',
                 }
             }}
         >
@@ -110,9 +111,9 @@ const CalendarModal = ({ isOpen, onClose }) => {
                                 <p>{eventInfo.event.extendedProps.description}</p>
                             </div>
                         )}
-                        height="100%"
+                        height="auto"
                         contentHeight="auto"
-                        aspectRatio={2.5}
+                        aspectRatio={1.5}
                     />
                 </div>
             )}
