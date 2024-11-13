@@ -87,10 +87,10 @@ const CalendarModal = ({ isOpen, onClose }) => {
                     transform: 'translate(-50%, -50%)',
                     width: '90%',
                     maxWidth: '800px',
-                    height: '80vh',
+                    height: '90vh',
                     padding: '20px',
                     borderRadius: '8px',
-                    overflow: 'auto',
+                    overflow: 'hidden',
                 }
             }}
         >
@@ -100,7 +100,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <div className="calendar-container">
+                <div style={{ height: 'calc(90vh - 80px', width: '100%' }}>
                     <FullCalendar
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
@@ -119,7 +119,6 @@ const CalendarModal = ({ isOpen, onClose }) => {
                             center: 'title',
                             right: ''
                         }}
-                        className="compact-calendar"
                     />
                 </div>
             )}

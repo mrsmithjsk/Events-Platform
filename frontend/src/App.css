@@ -293,38 +293,26 @@ h1 {
 }
 
 
-.calendar-container {
-  height: calc(80vh - 100px);
-  width: 100%;
-}
 
-.compact-calendar.fc {
+
+.fc {
   height: 100% !important;
 }
 
-.compact-calendar .fc-daygrid-day {
-  max-height: 100px !important;
-}
-
-.compact-calendar .fc-daygrid-day-frame {
-  min-height: auto !important;
+.fc .fc-view {
   height: 100% !important;
 }
 
-.compact-calendar .fc-daygrid-day-events {
-  margin: 0 !important;
-  padding: 2px 0;
+.fc .fc-scroller {
+  height: auto !important;
 }
 
-.compact-calendar .fc-daygrid-event {
-  padding: 2px 4px;
-  margin: 1px 2px !important;
-  font-size: 0.85em;
+.fc .fc-daygrid-body {
+  height: auto !important;
 }
 
-.compact-calendar .fc-daygrid-more-link {
-  font-size: 0.85em;
-  margin: 0 2px;
+.fc .fc-daygrid-body-balanced {
+  height: auto !important;
 }
 
 .calendar-event {
@@ -339,11 +327,23 @@ h1 {
   opacity: 0.8;
 }
 
-.compact-calendar .fc-header-toolbar {
-  margin-bottom: 0.5em !important;
-  padding: 0.5em;
+.fc td, .fc th {
+  border: 1px solid #ddd !important;
 }
 
-.compact-calendar .fc-col-header-cell {
-  padding: 4px 0 !important;
+.fc .fc-daygrid-day-number {
+  padding: 4px;
+  position: relative;
+  z-index: 4;
+  color: #333;
+}
+
+.fc .fc-daygrid-day {
+  height: 80px !important;
+}
+
+.fc-daygrid-event {
+  padding: 2px 4px !important;
+  margin: 1px 2px !important;
+  font-size: 0.85em !important;
 }
