@@ -100,6 +100,22 @@ const CalendarModal = ({ isOpen, onClose }) => {
                 <p>{error}</p>
             ) : (
                 <div style={{ height: '500px' }}>
+                    <style>
+                        {`
+    .fc-daygrid-day {
+        height: 20px !important; 
+        width: 20px !important;   
+    }
+    
+    .fc-daygrid-day-number {
+        font-size: 16px !important;
+    }
+    
+    .fc-daygrid-day-events {
+        font-size: 16px !important; 
+    }
+    `}
+                    </style>
                     <FullCalendar
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
@@ -112,6 +128,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
                         )}
                         height="100%"
                         contentHeight="auto"
+                        aspectRatio={2.5}
                     />
                 </div>
             )}
