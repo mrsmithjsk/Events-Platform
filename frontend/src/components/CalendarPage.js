@@ -23,7 +23,20 @@ const localizer = dateFnsLocalizer({
 });
 
 const EventComponent = ({ event }) => (
-    <span>{event.title}</span>
+    <div style={{
+        backgroundColor: '#3174ad',
+        color: 'white',
+        padding: '2px 5px',
+        borderRadius: '3px',
+        fontSize: '14px',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        width: '100%',
+        cursor: 'pointer'
+    }}>
+        {event.title}
+        </div>
 );
 
 const CalendarPage = () => {
@@ -102,8 +115,8 @@ const CalendarPage = () => {
     return (
         <div style={{ padding: '20px' }}>
             <div style={{ marginBottom: '20px' }}>
-                <h2>Your Events Calendar</h2>
-                <button onClick={() => navigate('/events')}>
+                <h2 style={{ marginBottom: '10px' }}>Your Events Calendar</h2>
+                <button className="back-button" onClick={() => navigate('/events')}>
                     Back to Events
                 </button>
             </div>
