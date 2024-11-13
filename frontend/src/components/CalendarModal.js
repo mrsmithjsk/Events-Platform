@@ -98,7 +98,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <div style={{ height: 'calc(100% - 60px)' }}>
+                <div style={{ height: '500px' }}>
                     <FullCalendar
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
@@ -110,6 +110,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
                             </div>
                         )}
                         height="100%"
+                        contentHeight="auto"
                     />
                 </div>
             )}
