@@ -83,39 +83,34 @@ const CalendarPage = () => {
         fetchUserEvents();
     }, [token, refreshAccessToken, navigate]);
 
-    const handleEventSelect = (event) => {
-        alert(`Event: ${event.title}\n${event.description || 'No description available'}`);
-    };
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <div className="min-h-screen p-4 bg-gray-50">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold">Your Events Calendar</h2>
-                    <button
-                        onClick={() => navigate('/events')}
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                        Back to Events
-                    </button>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow p-4" style={{ height: '700px' }}>
-                    <Calendar
-                        localizer={localizer}
-                        events={userEvents}
-                        startAccessor="start"
-                        endAccessor="end"
-                        onSelectEvent={handleEventSelect}
-                        style={{ height: '100%' }}
-                        views={['month', 'day']}
-                        defaultView="month"
-                        tooltipAccessor={event => event.description}
-                    />
-                </div>
+        <div>
+            <button onClick={() => navigate('/events')}>
+                Back to Events
+            </button>
+            
+            <div style={{ 
+                height: '90vh',
+                minHeight: '900px',
+                backgroundColor: 'white',
+                padding: '20px',
+                borderRadius: '8px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            }}>
+                <Calendar
+                    localizer={localizer}
+                    events={userEvents}
+                    startAccessor="start"
+                    endAccessor="end"
+                    defaultView="month"
+                    views={['month', 'day']}
+                    style={{ height: '100%' }}
+                    popup
+                    tooltipAccessor={event => `${event.title}: ${event.description}`}
+                />
             </div>
         </div>
     );
