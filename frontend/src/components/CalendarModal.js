@@ -100,7 +100,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <div className="calendar-container" style={{ height: '600px' }}>
+                <div className="calendar-container">
                     <FullCalendar
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
@@ -111,9 +111,15 @@ const CalendarModal = ({ isOpen, onClose }) => {
                                 <p>{eventInfo.event.extendedProps.description}</p>
                             </div>
                         )}
-                        height="auto"
-                        contentHeight="auto"
-                        aspectRatio={2}
+                        height="100%"
+                        dayMaxEvents={3}
+                        aspectRatio={1.35}
+                        headerToolbar={{
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: ''
+                        }}
+                        className="compact-calendar"
                     />
                 </div>
             )}

@@ -293,20 +293,57 @@ h1 {
 }
 
 
-.calendar-container .fc-daygrid-day {
-  height: 20px !important; 
-  width: 20px !important;   
+.calendar-container {
+  height: calc(80vh - 100px);
+  width: 100%;
 }
 
-
-.calendar-container .fc-daygrid-day-number {
-  font-size: 16px !important;
+.compact-calendar.fc {
+  height: 100% !important;
 }
 
-.calendar-container .fc-daygrid-day-events {
-  font-size: 16px !important; 
+.compact-calendar .fc-daygrid-day {
+  max-height: 100px !important;
 }
 
-.calendar-container .fc-daygrid-day.fc-day {
-  height: 20px !important;
+.compact-calendar .fc-daygrid-day-frame {
+  min-height: auto !important;
+  height: 100% !important;
+}
+
+.compact-calendar .fc-daygrid-day-events {
+  margin: 0 !important;
+  padding: 2px 0;
+}
+
+.compact-calendar .fc-daygrid-event {
+  padding: 2px 4px;
+  margin: 1px 2px !important;
+  font-size: 0.85em;
+}
+
+.compact-calendar .fc-daygrid-more-link {
+  font-size: 0.85em;
+  margin: 0 2px;
+}
+
+.calendar-event {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-event p {
+  margin: 0;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.compact-calendar .fc-header-toolbar {
+  margin-bottom: 0.5em !important;
+  padding: 0.5em;
+}
+
+.compact-calendar .fc-col-header-cell {
+  padding: 4px 0 !important;
 }
