@@ -28,7 +28,7 @@ const CalendarPage = () => {
                 if (isTokenExpired(token)) {
                     currentToken = await refreshAccessToken();
                     if (!currentToken) {
-                        alert('Session expired. Please log in again.');
+                        //alert('Session expired. Please log in again.');
                         return;
                     }
                 }

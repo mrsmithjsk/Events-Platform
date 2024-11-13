@@ -17,7 +17,7 @@ const EventList = () => {
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const { token } = useAuth();
+    const { token, refreshToken } = useAuth();
 
     const handleLogOff = () => {
         localStorage.removeItem('token');
@@ -97,25 +97,37 @@ const EventList = () => {
     const handleGoogleCallback = useCallback(async () => {
         const params = new URLSearchParams(location.search);
         const code = params.get('code');
-        const token = params.get('token');
 
-        if (token) {
-            localStorage.setItem('token', token);
-            localStorage.setItem('isGoogleLoggedIn', 'true');
-            setIsGoogleLoggedIn(true);
-            await fetchEvents();
-            navigate('/events');
-        } else if (code) {
-            const response = await fetch(`https://events-platform-cyfi.onrender.com/api/auth/google/redirect?code=${code}`, {
-                method: 'GET',
-                credentials: 'include'
-            });
-            if (!response.ok) {
-                throw new Error('Failed to authenticate');
+        if (code) {
+            try {
+                const response = await fetch(`https://events-platform-cyfi.onrender.com/api/auth/google/redirect?code=${code}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (!response.ok) throw new Error('Failed to authenticate with Google');
+
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userEmail', data.email);
+
+                const decoded = JSON.parse(atob(data.token.split('.')[1]));
+                localStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
+
+                setToken(data.token);
+                setIsGoogleLoggedIn(true);
+
+                //fetch events should now include user data and participant status
+                await fetchEvents();
+                navigate('/events');
+            } catch (error) {
+                alert('Error during Google callback: ' + error.message);
             }
-            alert('Error during Google callback: No token found');
+        } else {
+            alert('Google authentication failed: No authorization code found');
         }
     }, [location.search, navigate, fetchEvents]);
+
 
     useEffect(() => {
         handleGoogleCallback();
