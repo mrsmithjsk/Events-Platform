@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-    format, 
-    startOfMonth, 
-    endOfMonth, 
-    eachDayOfInterval, 
-    isSameMonth, 
+import {
+    format,
+    startOfMonth,
+    endOfMonth,
+    eachDayOfInterval,
+    isSameMonth,
     isSameDay,
     startOfWeek,
-    endOfWeek 
+    endOfWeek
 } from 'date-fns';
 
 const Calendar = ({ events }) => {
@@ -55,13 +55,16 @@ const Calendar = ({ events }) => {
             )}
 
             <div className="calendar-header">
-                <button onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)))}>
-                    Previous
-                </button>
+
                 <h2>{format(currentDate, 'MMMM yyyy')}</h2>
-                <button onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)))}>
-                    Next
-                </button>
+                <div className="calendar-nav-buttons">
+                    <button onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)))}>
+                        Previous
+                    </button>
+                    <button onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)))}>
+                        Next
+                    </button>
+                </div>
             </div>
 
             <div className="calendar-days-header">
@@ -76,7 +79,7 @@ const Calendar = ({ events }) => {
                     const isCurrentMonth = isSameMonth(day, currentDate);
 
                     return (
-                        <div 
+                        <div
                             key={day.toString()}
                             className={`calendar-day ${!isCurrentMonth ? 'other-month' : ''}`}
                         >
@@ -85,8 +88,8 @@ const Calendar = ({ events }) => {
                             </div>
                             <div className="day-events">
                                 {dayEvents.map(event => (
-                                    <div 
-                                        key={event.id} 
+                                    <div
+                                        key={event.id}
                                         className="event"
                                         onClick={() => handleEventClick(event)}
                                     >
