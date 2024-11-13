@@ -17,7 +17,7 @@ const EventList = () => {
     const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const { token, refreshToken } = useAuth();
+    const { token, setToken, refreshToken } = useAuth();
 
     const handleLogOff = () => {
         localStorage.removeItem('token');
