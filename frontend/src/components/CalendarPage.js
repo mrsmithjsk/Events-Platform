@@ -83,6 +83,10 @@ const CalendarPage = () => {
         fetchUserEvents();
     }, [token, refreshAccessToken, navigate]);
 
+    const handleEventSelect = (event) => {
+        alert(`Event: ${event.title}\n${event.description || 'No description available'}`);
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
@@ -107,7 +111,7 @@ const CalendarPage = () => {
                         endAccessor="end"
                         onSelectEvent={handleEventSelect}
                         style={{ height: '100%' }}
-                        views={['month', 'week', 'day']}
+                        views={['month', 'day']}
                         defaultView="month"
                         tooltipAccessor={event => event.description}
                     />
