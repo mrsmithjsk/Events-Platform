@@ -23,60 +23,8 @@ const localizer = dateFnsLocalizer({
 });
 
 const EventComponent = ({ event }) => (
-    <div className="calendar-event">{event.title}</div>
+    <span>{event.title}</span>
 );
-
-const CustomToolbar = (toolbar) => {
-    const goToBack = () => {
-        toolbar.date.setMonth(toolbar.date.getMonth() - 1);
-        toolbar.onNavigate('prev');
-    };
-
-    const goToNext = () => {
-        toolbar.date.setMonth(toolbar.date.getMonth() + 1);
-        toolbar.onNavigate('next');
-    };
-
-    const goToCurrent = () => {
-        const now = new Date();
-        toolbar.date.setMonth(now.getMonth());
-        toolbar.date.setYear(now.getFullYear());
-        toolbar.onNavigate('current');
-    };
-
-    return (
-        <div className="toolbar-container">
-            <div>
-                <button className="toolbar-button" onClick={goToBack}>
-                    Previous
-                </button>
-                <button className="toolbar-button" onClick={goToCurrent}>
-                    Today
-                </button>
-                <button className="toolbar-button" onClick={goToNext}>
-                    Next
-                </button>
-            </div>
-            <span className="calendar-title">
-                {format(toolbar.date, 'MMMM yyyy')}
-            </span>
-            <div>
-                <button 
-                    className={`toolbar-button ${toolbar.view === 'month' ? 'active' : ''}`}
-                    onClick={() => toolbar.onView('month')}
-                >
-                    Month
-                </button>
-                <button 
-                    className={`toolbar-button ${toolbar.view === 'day' ? 'active' : ''}`}
-                    onClick={() => toolbar.onView('day')}
-                >
-                    Day
-                </button>
-            </div>
-        </div>
-    );
-};
 
 const CalendarPage = () => {
     const [userEvents, setUserEvents] = useState([]);
@@ -148,19 +96,19 @@ const CalendarPage = () => {
         `);
     };
 
-    if (loading) return <div className="calendar-loading">Loading...</div>;
-    if (error) return <div className="calendar-error">Error: {error}</div>;
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div style={{ padding: '20px' }}>
-            <div className="calendar-header">
+            <div style={{ marginBottom: '20px' }}>
                 <h2>Your Events Calendar</h2>
-                <button className="back-button" onClick={() => navigate('/events')}>
+                <button onClick={() => navigate('/events')}>
                     Back to Events
                 </button>
             </div>
 
-            <div className="calendar-container">
+            <div className="calendar-container" style={{ height: '90vh', minHeight: '900px' }}>
                 <Calendar
                     localizer={localizer}
                     events={userEvents}
@@ -169,17 +117,13 @@ const CalendarPage = () => {
                     views={['month', 'day']}
                     defaultView="month"
                     components={{
-                        event: EventComponent,
-                        toolbar: CustomToolbar
+                        event: EventComponent
                     }}
+                    style={{ height: '100%' }}
                     popup
                     onSelectEvent={handleSelectEvent}
                     step={60}
                     timeslots={1}
-                    style={{
-                        height: '100%',
-                        width: '100%'
-                    }}
                 />
             </div>
         </div>
