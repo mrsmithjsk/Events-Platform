@@ -84,7 +84,7 @@ const CalendarPage = () => {
         };
 
         fetchUserEvents();
-    }, [token, refreshToken, setToken, setRefreshToken]);
+    }, [token, refreshToken, setToken, setRefreshToken, refreshAccessToken]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
