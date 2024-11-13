@@ -11,36 +11,36 @@ const CalendarPage = () => {
     const { token, refreshToken, setToken, setRefreshToken } = useAuth();
     const navigate = useNavigate();
 
-    const refreshAccessToken = async () => {
-        try {
-            const response = await fetch('https://events-platform-cyfi.onrender.com/api/auth/refresh', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ refreshToken }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setToken(data.accessToken);
-                localStorage.setItem('token', data.accessToken);
-                
-                if (data.refreshToken) {
-                    setRefreshToken(data.refreshToken);
+    useEffect(() => {
+        const refreshAccessToken = async () => {
+            try {
+                const response = await fetch('https://events-platform-cyfi.onrender.com/api/auth/refresh', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ refreshToken }),
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    setToken(data.accessToken);
+                    localStorage.setItem('token', data.accessToken);
+                    
+                    if (data.refreshToken) {
+                        setRefreshToken(data.refreshToken);
+                    }
+                    return data.accessToken;
+                } else {
+                    console.error('Failed to refresh token');
+                    return null;
                 }
-                return data.accessToken;
-            } else {
-                console.error('Failed to refresh token');
+            } catch (error) {
+                console.error('Error refreshing token:', error);
                 return null;
             }
-        } catch (error) {
-            console.error('Error refreshing token:', error);
-            return null;
-        }
-    };
-
-    useEffect(() => {
+        };
+        
         const fetchUserEvents = async () => {
             try {
                 setLoading(true);
