@@ -294,48 +294,75 @@ h1 {
 
 
 
+
 .calendar-container {
   width: 100%;
 }
 
 
 .rbc-calendar {
-  width: 100%;
+  width: 100% !important;
 }
 
 
-.rbc-time-view,
-.rbc-time-header-content,
+.custom-event {
+  background-color: #3174ad;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 1px 0;
+}
+
+.rbc-time-view {
+  width: 100% !important;
+}
+
 .rbc-time-content {
   width: 100% !important;
 }
 
-
-.rbc-event {
-  background-color: #3174ad;
-  padding: 2px !important;
-  min-height: 20px;
+.rbc-time-header-content {
+  width: 100% !important;
+  flex: 1 !important;
 }
 
-.rbc-event-content {
-  font-size: 14px;
+.rbc-time-column {
+  min-width: 100px !important;
 }
-
 
 .rbc-day-slot {
-  width: 100% !important;
+  width: auto !important;
+  flex: 1 !important;
 }
 
+
+.rbc-row-segment {
+  padding: 2px 4px !important;
+}
+
+.rbc-row {
+  min-height: 30px;
+}
+
+.rbc-month-view .rbc-month-row {
+  min-height: 100px;
+}
 
 .rbc-time-gutter {
-  min-width: 100px;
+  width: 100px !important;
 }
 
-
-.rbc-allday-cell {
-  width: 100% !important;
+.rbc-event {
+  background-color: #3174ad !important;
+  border: none !important;
 }
 
-.rbc-time-header-content {
-  flex: 1 !important;
+.rbc-time-header.rbc-overflowing {
+  margin-right: 0 !important;
+}
+
+.rbc-time-view .rbc-row {
+  min-height: 20px;
 }

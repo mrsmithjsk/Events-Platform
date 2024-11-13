@@ -75,8 +75,9 @@ const CalendarPage = () => {
                     title: event.title,
                     description: event.description,
                     start: new Date(event.start),
-                    end: new Date(event.start),  
-                    allDay: true
+                    end: addHours(startDate, 2),
+                    // end: new Date(event.start),  
+                    // allDay: true
                 }));
                 setUserEvents(formattedEvents);
             } catch (err) {
@@ -123,6 +124,8 @@ const CalendarPage = () => {
                     style={{ height: '100%' }}
                     popup
                     onSelectEvent={handleSelectEvent}
+                    step={60}
+                    timeslots={1}
                 />
             </div>
         </div>
