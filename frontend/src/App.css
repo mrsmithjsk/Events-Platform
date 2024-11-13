@@ -293,39 +293,27 @@ h1 {
 }
 
 
-/* Custom styles for React Big Calendar */
-/* .rbc-calendar {
-  width: 100%;
-  background: white;
+.rbc-calendar {
+  width: 100% !important;
 }
 
-.rbc-header {
-  padding: 8px;
-  font-weight: bold;
-  background: #f8f9fa;
+.rbc-time-view {
+  width: 100% !important;
+}
+
+.rbc-time-content {
+  width: 100% !important;
+}
+
+.rbc-time-header {
+  width: 100% !important;
 }
 
 .rbc-event {
-  background-color: #3182ce;
-  border-radius: 4px;
-  padding: 2px 5px;
+  background-color: #3174ad;
+  padding: 2px 5px !important;
 }
 
-.rbc-today {
-  background-color: #ebf8ff;
+.rbc-event-content {
+  white-space: normal !important;
 }
-
-.rbc-toolbar button {
-  color: #4a5568;
-  border: 1px solid #e2e8f0;
-  padding: 6px 12px;
-}
-
-.rbc-toolbar button:hover {
-  background-color: #edf2f7;
-}
-
-.rbc-toolbar button.rbc-active {
-  background-color: #3182ce;
-  color: white;
-} */

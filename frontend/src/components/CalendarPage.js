@@ -70,7 +70,8 @@ const CalendarPage = () => {
                     title: event.title,
                     start: event.start,
                     end: event.end,
-                    description: event.description
+                    description: event.description,
+                    allDay: true
                 }));
                 setUserEvents(formattedEvents);
             } catch (err) {
@@ -95,10 +96,7 @@ const CalendarPage = () => {
             <div style={{ 
                 height: '90vh',
                 minHeight: '900px',
-                backgroundColor: 'white',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                width: '100%'
             }}>
                 <Calendar
                     localizer={localizer}
@@ -107,7 +105,7 @@ const CalendarPage = () => {
                     endAccessor="end"
                     defaultView="month"
                     views={['month', 'day']}
-                    style={{ height: '100%' }}
+                    style={{ width: '100%', height: '100%' }}
                     popup
                     tooltipAccessor={event => `${event.title}: ${event.description}`}
                 />
