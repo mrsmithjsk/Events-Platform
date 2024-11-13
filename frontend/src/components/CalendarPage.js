@@ -75,8 +75,6 @@ const CalendarPage = () => {
                     start: event.start,
                     end: event.end,
                     description: event.description,
-                    start: new Date(event.start),
-                    end: new Date(event.end),
                     allDay: true
                 }));
                 setUserEvents(formattedEvents);
