@@ -8,7 +8,7 @@ const CalendarPage = () => {
     const [userEvents, setUserEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { token, refreshToken, setToken, setRefreshToken } = useAuth();
+    const { token, refreshToken, setToken, setRefreshToken, refreshAccessToken } = useAuth();
     const navigate = useNavigate();
 
     // const refreshAccessToken = useCallback(async () => {
