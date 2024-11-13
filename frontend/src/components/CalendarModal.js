@@ -112,9 +112,8 @@ const CalendarModal = ({ isOpen, onClose }) => {
                             </div>
                         )}
                         height="auto"
-                        contentHeight="450px"
-                        aspectRatio={1.5}
-                        dayMinWidth={30}
+                        contentHeight="auto"
+                        aspectRatio={2}
                     />
                 </div>
             )}
