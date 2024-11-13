@@ -12,10 +12,9 @@ const PaymentSuccess = () => {
         const sessionId = query.get('session_id');
 
         const token = localStorage.getItem('token'); 
-        //console.log("Token on Payment Success:", token);
         if (!token) {
             console.error('Token is missing or expired.');
-            alert('You need to log in to access this feature.');
+            alert('You need to log in to google to access this feature.');
             navigate('/login'); 
             return; 
         }
