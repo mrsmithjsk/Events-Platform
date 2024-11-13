@@ -100,8 +100,14 @@ const EventList = () => {
         const token = params.get('token');
 
         if (token) {
+            const userEmail = localStorage.getItem('userEmail');
+            const decoded = JSON.parse(atob(token.split('.')[1]));
             localStorage.setItem('token', token);
             localStorage.setItem('isGoogleLoggedIn', 'true');
+            localStorage.setItem('user', JSON.stringify({ id: decoded.id, role: decoded.role }));
+            if (!localStorage.getItem('userEmail') && userEmail) {
+                localStorage.setItem('userEmail', userEmail);
+            }
             setIsGoogleLoggedIn(true);
             await fetchEvents();
             navigate('/events');
