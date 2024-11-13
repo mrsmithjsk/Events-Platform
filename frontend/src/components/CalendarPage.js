@@ -26,7 +26,7 @@ const EventComponent = ({ event }) => (
     <div style={{
         backgroundColor: '#3174ad',
         color: 'white',
-        padding: '2px 5px',
+        padding: '4px',
         borderRadius: '3px',
         fontSize: '14px',
         overflow: 'hidden',
