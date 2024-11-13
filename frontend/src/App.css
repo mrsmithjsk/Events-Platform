@@ -293,46 +293,16 @@ h1 {
 }
 
 
-.calendar-container {
-  width: 100%;
-  max-width: 100%;
-  background: white;
-  border: 1px solid #a0a096;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.125em;
+.fc-daygrid-day {
+  height: 60px !important; 
+  width: 60px !important;   
 }
 
-.calendar-container .react-calendar__tile {
-  max-width: 100%;
-  padding: 10px 6.6667px;
-  background: none;
-  text-align: center;
-  line-height: 16px;
+
+.fc-daygrid-day-number {
+  font-size: 12px !important;
 }
 
-.calendar-container .react-calendar__tile--now {
-  background: #ffff76;
-}
-
-.calendar-container .react-calendar__tile--active {
-  background: #006edc;
-  color: white;
-}
-
-.calendar-container .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
-}
-
-.calendar-container .react-calendar__navigation button {
-  min-width: 44px;
-  background: none;
-}
-
-.calendar-container .react-calendar__navigation button:enabled:hover,
-.calendar-container .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
-}
-
-.calendar-container .react-calendar__navigation button[disabled] {
-  background-color: #f0f0f0;
+.fc-daygrid-day-events {
+  font-size: 10px !important; 
 }

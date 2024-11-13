@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import '../App.css';
 import { useAuth } from '../AuthProvider';
 
 Modal.setAppElement('#root');
