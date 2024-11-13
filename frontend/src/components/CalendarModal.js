@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import Calendar from 'react-calendar';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import '../App.css';
-import 'react-calendar/dist/Calendar.css';
 import { useAuth } from '../AuthProvider';
 
 Modal.setAppElement('#root');
@@ -63,41 +63,6 @@ const CalendarModal = ({ isOpen, onClose }) => {
         fetchUserEvents();
     }, [isOpen, token, refreshAccessToken, onClose]);
 
-    const tileContent = ({ date, view }) => {
-        if (view !== 'month') return null;
-
-        const eventsOnDate = userEvents.filter(event =>
-            new Date(event.start).toDateString() === date.toDateString()
-        );
-
-        return eventsOnDate.length > 0 ? (
-            <div
-                style={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end'
-                }}
-                title={`${eventsOnDate.length} event(s)`}
-            >
-                <div style={{
-                    backgroundColor: '#007bff',
-                    color: 'white',
-                    borderRadius: '50%',
-                    width: '20px',
-                    height: '20px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    fontSize: '12px',
-                    margin: '2px auto'
-                }}>
-                    {eventsOnDate.length}
-                </div>
-            </div>
-        ) : null;
-    };
-
     return (
         <Modal
             isOpen={isOpen}
@@ -115,8 +80,8 @@ const CalendarModal = ({ isOpen, onClose }) => {
                     marginRight: '-50%',
                     transform: 'translate(-50%, -50%)',
                     width: '90%',
-                    maxWidth: '600px',
-                    maxHeight: '90vh',
+                    maxWidth: '800px',
+                    height: '80vh',
                     padding: '20px',
                     borderRadius: '8px',
                 }
@@ -128,15 +93,17 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <Calendar
-                    tileContent={tileContent}
-                    className="calendar-container"
-                    aria-label="User Events Calendar"
-                />
+                <div style={{ height: 'calc(100% - 60px)' }}>
+                    <FullCalendar
+                        plugins={[dayGridPlugin]}
+                        initialView="dayGridMonth"
+                        events={userEvents}
+                        height="100%"
+                    />
+                </div>
             )}
         </Modal>
     );
 };
 
 export default CalendarModal;
-
