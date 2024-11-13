@@ -90,8 +90,7 @@ const CalendarPage = () => {
     }, [token, refreshAccessToken, navigate]);
 
     const handleSelectEvent = (event) => {
-        alert(`
-            Event: ${event.title}
+        alert(`Event: ${event.title}
             ${event.description ? '\nDescription: ' + event.description : ''}
             \nDate: ${format(event.start, 'dd/MM/yyyy')}
         `);

@@ -339,7 +339,7 @@ h1 {
 
 
 .rbc-row-segment {
-  padding: 2px 4px !important;
+  padding: 4px 8px !important;
 }
 
 .rbc-row {
@@ -347,7 +347,18 @@ h1 {
 }
 
 .rbc-month-view .rbc-month-row {
-  min-height: 100px;
+  min-height: 200px;
+}
+
+.rbc-row-content {
+  height: 100%;
+}
+
+.rbc-event-content {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rbc-time-gutter {
