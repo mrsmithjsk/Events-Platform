@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-import enGB from 'date-fns/locale/en-GB'; 
+import enGB from 'date-fns/locale/en-GB';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../App.css';
 import { useAuth } from '../AuthProvider';
@@ -70,7 +70,15 @@ const CalendarPage = () => {
                 }
 
                 const data = await response.json();
-                setUserEvents(data);
+                const formattedEvents = data.map(event => ({
+                    id: event.id,
+                    title: event.title,
+                    description: event.description,
+                    start: new Date(event.start),
+                    end: new Date(event.start),  
+                    allDay: true
+                }));
+                setUserEvents(formattedEvents);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -80,6 +88,14 @@ const CalendarPage = () => {
 
         fetchUserEvents();
     }, [token, refreshAccessToken, navigate]);
+
+    const handleSelectEvent = (event) => {
+        alert(`
+            Event: ${event.title}
+            ${event.description ? '\nDescription: ' + event.description : ''}
+            \nDate: ${format(event.start, 'dd/MM/yyyy')}
+        `);
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -96,7 +112,7 @@ const CalendarPage = () => {
             <div className="calendar-container" style={{ height: '90vh', minHeight: '900px' }}>
                 <Calendar
                     localizer={localizer}
-                    events={userEvents} 
+                    events={userEvents}
                     startAccessor="start"
                     endAccessor="end"
                     views={['month', 'day']}
@@ -106,6 +122,7 @@ const CalendarPage = () => {
                     }}
                     style={{ height: '100%' }}
                     popup
+                    onSelectEvent={handleSelectEvent}
                 />
             </div>
         </div>
