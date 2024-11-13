@@ -108,7 +108,7 @@ const CalendarPage = () => {
                 </button>
             </div>
 
-            <div className="calendar-container" style={{ height: '90vh', minHeight: '900px' }}>
+            <div className="calendar-container" style={{ height: 'calc(90vh - 100px)', minHeight: '900px', maxHeight: '1200px' }}>
                 <Calendar
                     localizer={localizer}
                     events={userEvents}
