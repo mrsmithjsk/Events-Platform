@@ -25,12 +25,18 @@ const CalendarPage = () => {
                 setError(null);
                 let currentToken = token;
 
-                if (isTokenExpired(token)) {
+                if (currentToken && isTokenExpired(currentToken)) {
                     currentToken = await refreshAccessToken();
                     if (!currentToken) {
-                        //alert('Session expired. Please log in again.');
-                        return;
+                        throw new Error('Unable to refresh token. Please log in again.');
                     }
+                    localStorage.setItem('token', currentToken); 
+                } else if (!currentToken) {
+                    currentToken = localStorage.getItem('token');
+                }
+
+                if (!currentToken) {
+                    throw new Error('No valid token found. Please log in.');
                 }
 
                 const response = await fetch('https://events-platform-cyfi.onrender.com/api/events/userEvents', {
