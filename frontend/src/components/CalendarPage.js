@@ -66,51 +66,18 @@ const CalendarPage = () => {
         fetchUserEvents();
     }, [token, refreshAccessToken, navigate]);
 
-    return (
-        <div className="min-h-screen p-4">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold">Your Events Calendar</h2>
-                    <button
-                        onClick={() => navigate('/events')}
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                        Back to Events
-                    </button>
-                </div>
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
-                {loading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <p>Loading...</p>
-                    </div>
-                ) : error ? (
-                    <div className="text-red-500 text-center">
-                        <p>{error}</p>
-                    </div>
-                ) : (
-                    <div className="bg-white rounded-lg shadow p-4 h-[700px]">
-                        <FullCalendar
-                            plugins={[dayGridPlugin]}
-                            initialView="dayGridMonth"
-                            events={userEvents}
-                            eventContent={(eventInfo) => (
-                                <div className="text-sm">
-                                    <div className="font-semibold">{eventInfo.event.title}</div>
-                                    {eventInfo.event.extendedProps.description && (
-                                        <div className="text-xs">{eventInfo.event.extendedProps.description}</div>
-                                    )}
-                                </div>
-                            )}
-                            headerToolbar={{
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: ''
-                            }}
-                            height="100%"
-                            dayMaxEvents={3}
-                        />
-                    </div>
-                )}
+    return (
+        <div style={{ height: '100vh', padding: '20px' }}>
+            <button onClick={() => navigate('/events')}>Back to Events</button>
+            <div style={{ height: '90%', marginTop: '20px' }}>
+                <FullCalendar
+                    plugins={[dayGridPlugin]}
+                    initialView="dayGridMonth"
+                    events={userEvents}
+                />
             </div>
         </div>
     );
