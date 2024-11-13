@@ -45,7 +45,9 @@ exports.getUserEvents = async (req, res) => {
       id: event._id.toString(),
       title: event.title,
       description: event.description,
-      start: event.date.toISOString(),
+      start: new Date(event.date.setHours(0, 0, 0, 0)), 
+      end: new Date(event.date.setHours(23, 59, 59, 999)), 
+      allDay: true
     }));
 
     res.status(200).json(formattedEvents);

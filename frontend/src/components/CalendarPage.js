@@ -70,14 +70,7 @@ const CalendarPage = () => {
                 }
 
                 const data = await response.json();
-                const formattedEvents = data.map(event => ({
-                    title: event.title,
-                    start: event.start,
-                    end: event.end,
-                    description: event.description,
-                    allDay: true
-                }));
-                setUserEvents(formattedEvents);
+                setUserEvents(data);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -103,7 +96,7 @@ const CalendarPage = () => {
             <div className="calendar-container" style={{ height: '90vh', minHeight: '900px' }}>
                 <Calendar
                     localizer={localizer}
-                    events={userEvents}
+                    events={userEvents} 
                     startAccessor="start"
                     endAccessor="end"
                     views={['month', 'day']}
