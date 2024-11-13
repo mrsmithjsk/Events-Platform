@@ -52,7 +52,13 @@ const CalendarModal = ({ isOpen, onClose }) => {
                 }
 
                 const data = await response.json();
-                setUserEvents(data);
+                const formattedEvents = data.map(event => ({
+                    title: event.title,
+                    start: event.start,
+                    end: event.end,
+                    description: event.description
+                }));
+                setUserEvents(formattedEvents);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -98,6 +104,12 @@ const CalendarModal = ({ isOpen, onClose }) => {
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
                         events={userEvents}
+                        eventContent={(eventInfo) => (
+                            <div>
+                                <b>{eventInfo.event.title}</b>
+                                <p>{eventInfo.event.extendedProps.description}</p>
+                            </div>
+                        )}
                         height="100%"
                     />
                 </div>
