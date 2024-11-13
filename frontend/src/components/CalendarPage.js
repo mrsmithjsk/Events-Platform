@@ -75,7 +75,8 @@ const CalendarPage = () => {
                     id: event.id,
                     title: event.title,
                     description: event.description,
-                    start: new Date(event.start),
+                    //start: new Date(event.start),
+                    start: start,
                     end: addHours(startDate, 2),
                     // end: new Date(event.start),  
                     // allDay: true
