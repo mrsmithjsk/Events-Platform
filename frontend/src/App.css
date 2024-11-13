@@ -300,21 +300,98 @@ h1 {
   margin-top: 20px;
 }
 
-
 .rbc-calendar {
   width: 100% !important;
   height: calc(100% - 20px) !important;
+  border: 1px solid #ddd;
 }
 
+.rbc-month-view {
+  height: 100% !important;
+  border: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
 
-.custom-event {
-  background-color: #3174ad;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 3px;
+.rbc-month-header {
+  height: 40px !important;
+}
+
+.rbc-row.rbc-month-header {
+  display: flex !important;
+}
+
+.rbc-header {
+  padding: 8px !important;
+  border: 1px solid #ddd !important;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+
+.rbc-month-row {
+  display: flex !important;
+  flex: 1 1 0 !important;
+  min-height: 150px !important;
+  border: none !important;
+}
+
+.rbc-date-cell {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  padding: 8px !important;
+  border: 1px solid #ddd !important;
+  position: relative !important;
+  height: 100% !important;
+  min-height: 150px !important;
+}
+
+.rbc-date-cell > a {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.rbc-row-content {
+  height: calc(100% - 30px) !important;
+  margin-top: 30px !important;
+}
+
+.rbc-row-segment {
+  padding: 4px 8px !important;
+}
+
+.rbc-event {
+  background-color: #3174ad !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  margin: 2px 4px !important;
+}
+
+.rbc-event-content {
   font-size: 14px;
-  cursor: pointer;
-  margin: 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rbc-toolbar {
+  margin-bottom: 10px !important;
+  padding: 10px !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.rbc-toolbar button {
+  padding: 6px 12px !important;
+  background-color: white !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  margin: 0 2px !important;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #3174ad !important;
+  color: white !important;
 }
 
 .rbc-time-view {
@@ -334,72 +411,15 @@ h1 {
   min-width: 100px !important;
 }
 
+.rbc-time-gutter {
+  width: 100px !important;
+}
+
 .rbc-day-slot {
   width: auto !important;
   flex: 1 !important;
 }
 
-
-.rbc-row-segment {
-  padding: 4px 8px !important;
-}
-
-.rbc-row {
-  min-height: 30px;
-}
-
-.rbc-month-view {
-  height: 100% !important;
-  flex: 1 1 auto !important;
-}
-
-.rbc-month-row {
-  min-height: 200px !important;
-}
-
-.rbc-date-cell {
-  padding: 8px !important;
-  height: 100% !important;
-}
-
-.rbc-row-content {
-  height: 100% !important;
-}
-
-.rbc-event-content {
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.rbc-time-gutter {
-  width: 100px !important;
-}
-
-.rbc-event {
-  background-color: #3174ad !important;
-  border: none !important;
-}
-
 .rbc-time-header.rbc-overflowing {
   margin-right: 0 !important;
-}
-
-.rbc-time-view .rbc-row {
-  min-height: 20px;
-}
-
-.rbc-month-header {
-  height: 40px !important;
-}
-
-.rbc-header {
-  padding: 8px !important;
-}
-
-.rbc-month-view, 
-.rbc-month-row:last-child {
-  margin-bottom: 0 !important;
-  border-bottom: 1px solid #ddd !important;
 }
