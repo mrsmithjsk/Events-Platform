@@ -8,14 +8,36 @@ const CalendarPage = () => {
     const [userEvents, setUserEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { token, refreshAccessToken } = useAuth();
+    const { token, refreshToken, setToken, setRefreshToken } = useAuth();
     const navigate = useNavigate();
 
-    const isTokenExpired = (token) => {
-        if (!token) return true;
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const expirationTime = payload.exp * 1000;
-        return expirationTime < Date.now();
+    const refreshAccessToken = async () => {
+        try {
+            const response = await fetch('https://events-platform-cyfi.onrender.com/api/auth/refresh', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ refreshToken }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setToken(data.accessToken);
+                localStorage.setItem('token', data.accessToken);
+                
+                if (data.refreshToken) {
+                    setRefreshToken(data.refreshToken);
+                }
+                return data.accessToken;
+            } else {
+                console.error('Failed to refresh token');
+                return null;
+            }
+        } catch (error) {
+            console.error('Error refreshing token:', error);
+            return null;
+        }
     };
 
     useEffect(() => {
@@ -23,26 +45,19 @@ const CalendarPage = () => {
             try {
                 setLoading(true);
                 setError(null);
-                let currentToken = token;
+                let newToken = token;
 
-                if (currentToken && isTokenExpired(currentToken)) {
-                    currentToken = await refreshAccessToken();
-                    if (!currentToken) {
+                if (!newToken) {
+                    newToken = await refreshAccessToken();
+                    if (!newToken) {
                         throw new Error('Unable to refresh token. Please log in again.');
                     }
-                    localStorage.setItem('token', currentToken); 
-                } else if (!currentToken) {
-                    currentToken = localStorage.getItem('token');
-                }
-
-                if (!currentToken) {
-                    throw new Error('No valid token found. Please log in.');
                 }
 
                 const response = await fetch('https://events-platform-cyfi.onrender.com/api/events/userEvents', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${currentToken}`,
+                        'Authorization': `Bearer ${newToken}`,
                         'Content-Type': 'application/json',
                     },
                     credentials: 'include',
@@ -59,7 +74,6 @@ const CalendarPage = () => {
                     description: event.description,
                     start: new Date(event.start),
                     end: new Date(event.start),  
-                    // allDay: true
                 }));
                 setUserEvents(formattedEvents);
             } catch (err) {
@@ -70,7 +84,7 @@ const CalendarPage = () => {
         };
 
         fetchUserEvents();
-    }, [token, refreshAccessToken, navigate]);
+    }, [token, refreshToken, setToken, setRefreshToken]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
