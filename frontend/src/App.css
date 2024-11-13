@@ -293,27 +293,49 @@ h1 {
 }
 
 
+
+.calendar-container {
+  width: 100%;
+}
+
+
 .rbc-calendar {
-  width: 100% !important;
+  width: 100%;
 }
 
-.rbc-time-view {
-  width: 100% !important;
-}
 
+.rbc-time-view,
+.rbc-time-header-content,
 .rbc-time-content {
   width: 100% !important;
 }
 
-.rbc-time-header {
-  width: 100% !important;
-}
 
 .rbc-event {
   background-color: #3174ad;
-  padding: 2px 5px !important;
+  padding: 2px !important;
+  min-height: 20px;
 }
 
 .rbc-event-content {
-  white-space: normal !important;
+  font-size: 14px;
+}
+
+
+.rbc-day-slot {
+  width: 100% !important;
+}
+
+
+.rbc-time-gutter {
+  min-width: 100px;
+}
+
+
+.rbc-allday-cell {
+  width: 100% !important;
+}
+
+.rbc-time-header-content {
+  flex: 1 !important;
 }

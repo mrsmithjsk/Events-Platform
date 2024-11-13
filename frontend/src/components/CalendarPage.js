@@ -22,6 +22,10 @@ const localizer = dateFnsLocalizer({
     locales,
 });
 
+const EventComponent = ({ event }) => (
+    <span>{event.title}</span>
+);
+
 const CalendarPage = () => {
     const [userEvents, setUserEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -71,6 +75,8 @@ const CalendarPage = () => {
                     start: event.start,
                     end: event.end,
                     description: event.description,
+                    start: new Date(event.start),
+                    end: new Date(event.end),
                     allDay: true
                 }));
                 setUserEvents(formattedEvents);
@@ -88,26 +94,27 @@ const CalendarPage = () => {
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <div>
-            <button onClick={() => navigate('/events')}>
-                Back to Events
-            </button>
-            
-            <div style={{ 
-                height: '90vh',
-                minHeight: '900px',
-                width: '100%'
-            }}>
+        <div style={{ padding: '20px' }}>
+            <div style={{ marginBottom: '20px' }}>
+                <h2>Your Events Calendar</h2>
+                <button onClick={() => navigate('/events')}>
+                    Back to Events
+                </button>
+            </div>
+
+            <div className="calendar-container" style={{ height: '90vh', minHeight: '900px' }}>
                 <Calendar
                     localizer={localizer}
                     events={userEvents}
                     startAccessor="start"
                     endAccessor="end"
-                    defaultView="month"
                     views={['month', 'day']}
-                    style={{ width: '100%', height: '100%' }}
+                    defaultView="month"
+                    components={{
+                        event: EventComponent
+                    }}
+                    style={{ height: '100%' }}
                     popup
-                    tooltipAccessor={event => `${event.title}: ${event.description}`}
                 />
             </div>
         </div>
