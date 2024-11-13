@@ -293,16 +293,16 @@ h1 {
 }
 
 
-.fc-daygrid-day {
+.calendar-container .fc-daygrid-day {
   height: 20px !important; 
   width: 20px !important;   
 }
 
 
-.fc-daygrid-day-number {
+.calendar-container .fc-daygrid-day-number {
   font-size: 16px !important;
 }
 
-.fc-daygrid-day-events {
+.calendar-container .fc-daygrid-day-events {
   font-size: 16px !important; 
 }

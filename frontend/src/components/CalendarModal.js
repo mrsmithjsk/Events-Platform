@@ -99,23 +99,7 @@ const CalendarModal = ({ isOpen, onClose }) => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <div style={{ height: '500px' }}>
-                    <style>
-                        {`
-    .fc-daygrid-day {
-        height: 20px !important; 
-        width: 20px !important;   
-    }
-    
-    .fc-daygrid-day-number {
-        font-size: 16px !important;
-    }
-    
-    .fc-daygrid-day-events {
-        font-size: 16px !important; 
-    }
-    `}
-                    </style>
+                <div className="calendar-container" style={{ height: '500px' }}>
                     <FullCalendar
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
